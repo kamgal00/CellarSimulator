@@ -1,6 +1,6 @@
 package Cellar.Model;
 
-import java.util.ArrayList;
+import static Cellar.Model.Model.*;
 
 public class Room {
 
@@ -8,8 +8,9 @@ public class Room {
     //coordinates of left upper corner of the room
     public int x;
     public int y;
+    public int id;
 
-    public ArrayList<Field> fields=new ArrayList<>();
+    public Field[][] fields=new Field[roomSize][roomSize];
 
     public void moveRoom(int x, int y){
         this.x+=x;
