@@ -54,7 +54,7 @@ public class Controller {
             Scene scene = new Scene(root, width * cornerSize, height * cornerSize);
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Cellar");
+            primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
 
             level.addRoom(new BasicRoom(0, 0));

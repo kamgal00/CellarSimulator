@@ -14,5 +14,4 @@ public class Model {
     public enum Dir {
         left, right, up, down, none
     }
-
 }
