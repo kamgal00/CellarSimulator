@@ -1,7 +1,7 @@
 package Cellar.Controller;
 
 import Cellar.Model.Level;
-import Cellar.Model.Rooms.BasicRoom;
+import Cellar.Model.LevelGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,10 +20,6 @@ import static Cellar.View.View.show;
 
 
 public class Controller {
-
-    //data
-    static public Random rand = new Random();
-    static public Level level= new Level();
 
     public static void start(Stage primaryStage){
         try{
@@ -57,7 +53,9 @@ public class Controller {
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
 
-            level.addRoom(new BasicRoom(0, 0));
+            levelGenerator=new LevelGenerator();
+            levels.add(levelGenerator.levelGenerate());
+            currentLevel=levels.get(currentLevelIndex);
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
                 if (key.getCode() == KeyCode.W) {
@@ -83,6 +81,6 @@ public class Controller {
     public static void tick(GraphicsContext gc){
         show(gc);
         move();
-        showLevel(gc, level);
+        //showLevel(gc);
     }
 }

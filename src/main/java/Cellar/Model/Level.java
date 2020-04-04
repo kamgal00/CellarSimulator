@@ -24,7 +24,12 @@ public class Level {
                 //iterating by field
                 for(int n=0; n<roomSize; n++){ //by row
                     for (int m=0; m<roomSize; m++){ //by column
-                        field[i*roomSize+n][j*roomSize+m]=rooms[i][j].fields[n][m];
+                        if(rooms[i][j].fields[n][m]!=null){
+                            field[i*roomSize+n][j*roomSize+m]=rooms[i][j].fields[n][m];
+                        }
+                        else{
+                            field[i*roomSize+n][j*roomSize+m]=new Field(Field.TypeOfField.wall);
+                        }
                     }
                 }
             }

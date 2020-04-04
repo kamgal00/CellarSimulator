@@ -5,7 +5,7 @@ import Cellar.Model.Room;
 import static Cellar.Model.Model.*;
 
 public class Move {
-    public static void move(){
+    public static void move(){/*
         switch (direction){
             case up:
                 for(Room room: level.rooms){
@@ -31,6 +31,8 @@ public class Move {
                 }
                 direction=Dir.none;
                 break;
-        }
+        }*/
+
+
     }
 }

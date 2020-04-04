@@ -1,16 +1,18 @@
 package Cellar.Model;
 
 public class Field {
-    public boolean wall=false;
-    //coordinates of field in room
-    public int x;
-    public int y;
-    public enum typeOfField{
-        wall, floor, corridor
+
+    TypeOfField typeOfField;
+
+    public enum TypeOfField{
+        wall, floor, corridor, entrance, exit
     }
 
-    public Field(int x, int y){
-        this.x=x;
-        this.y=y;
+    public Field(TypeOfField type){
+        typeOfField=type;
+    }
+
+    public TypeOfField getType(){
+        return typeOfField;
     }
 }
