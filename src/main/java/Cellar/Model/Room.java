@@ -16,21 +16,7 @@ public class Room {
         this.id=id;
     }
 
-    public boolean connect(Room con){
-        if(connected.contains(con.connected.get(0))){
-            return true;
-        }
-        //if werent connected
-        con.connected.addAll(connected);
-        for(Integer id: con.connected){
-            if(!connected.contains(id)){
-                connected.add(id);
-            }
-        }
-        return false;
-    }
-
-    public boolean equals(Room room){
+    public boolean equal(Room room){
         if(id==room.id){return true;}
         return false;
     }

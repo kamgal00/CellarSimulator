@@ -27,7 +27,7 @@ public class LevelGenerator {
         while(numberOfRooms<=5){
             for(int i=0; i<levelSize; i++){ //by row
                 for (int j=0; j<levelSize; j++){ //by column
-                    if(rand.nextInt(100)<40 && rooms[i][j].equals(new EmptyRoom())){
+                    if(rand.nextInt(100)<40 && rooms[i][j].equal(new EmptyRoom())){
                         rooms[i][j]=roomGenerator.nextRoom();
                         rooms[i][j].id=numberOfRooms;
                         rooms[i][j].connected.add(numberOfRooms);
@@ -37,6 +37,8 @@ public class LevelGenerator {
                 }
             }
         }
+
+        System.out.println(numberOfRooms);
 
         //connecting with corridors
         while(numberOfRooms>roomList.get(0).connected.size()){
@@ -59,9 +61,8 @@ public class LevelGenerator {
                 }
             }
 
+            //System.out.println("first id:" + first + " " +firstY + " " +firstX+" second id:"+ second +" "+ secondY+" "+secondX);
             generateCorridors(first, firstX, firstY, second, secondX, secondY);
-            roomList.get(first).connect(roomList.get(second));
-
         }
 
         //fuse to array
@@ -69,6 +70,7 @@ public class LevelGenerator {
         for(int i=0; i<77; i++){
             for(int j=0; j<77; j++){
                 if(gen.field[i][j].getType()==Field.TypeOfField.wall){System.out.print(" ");}
+                else if(gen.field[i][j].getType()==Field.TypeOfField.corridor){System.out.print("O");}
                 else{System.out.print("X");}
             }
             System.out.println(" ");
@@ -79,14 +81,13 @@ public class LevelGenerator {
     void generateCorridors(int first, int firstX, int firstY, int second, int secondX, int secondY){
         int fieldX, fieldY, roomX, roomY;
         roomX=firstX; roomY=firstY;
-        fieldX=(roomSize+1)/2; fieldY=(roomSize+1)/2;
+        fieldX=(roomSize)/2; fieldY=(roomSize)/2;
         Room currentRoom=roomList.get(first);
 
         //if second is on the left
         if(firstX>secondX){
             for(int i=0; i<roomSize; i++){
-                if(currentRoom.fields[(roomSize+1)/2][i]!=null && currentRoom.fields[(roomSize+1)/2][i].getType()!=Field.TypeOfField.wall){
-                    fieldY=(roomSize+1)/2;
+                if(currentRoom.fields[fieldY][i]!=null && currentRoom.fields[fieldY][i].getType()!=Field.TypeOfField.wall){
                     fieldX=i;
                     break;
                 }
@@ -98,39 +99,54 @@ public class LevelGenerator {
             }
 
             //going left
+            roomX--;
             while(roomX!=secondX){
-                roomX--;
                 currentRoom=rooms[roomY][roomX];
                 //if met room on the way
-                if(!currentRoom.equals(new EmptyRoom())){
+                if(!currentRoom.equal(new EmptyRoom())){
                     fieldX=roomSize-1;
                     while(currentRoom.fields[fieldY][fieldX]==null || currentRoom.fields[fieldY][fieldX].getType()==Field.TypeOfField.wall){
                         currentRoom.fields[fieldY][fieldX]=new Field(Field.TypeOfField.corridor);
                         fieldX--;
                     }
-                    roomList.get(first).connect(currentRoom);
+                    connect(roomList.get(first), currentRoom);
                     return;
                 }
                 //if theres no room
                 for(int i=0; i<roomSize; i++){
                     currentRoom.fields[fieldY][i]=new Field(Field.TypeOfField.corridor);
                 }
+                roomX--;
             }
 
             //filling to center
             currentRoom=rooms[roomY][roomX];
             //if met room on the way
-            if(!currentRoom.equals(new EmptyRoom())){
+            if(!currentRoom.equal(new EmptyRoom())){
                 fieldX=roomSize-1;
                 while(currentRoom.fields[fieldY][fieldX]==null || currentRoom.fields[fieldY][fieldX].getType()==Field.TypeOfField.wall){
                     currentRoom.fields[fieldY][fieldX]=new Field(Field.TypeOfField.corridor);
                     fieldX--;
                 }
-                roomList.get(first).connect(currentRoom);
+                connect(roomList.get(first), currentRoom);
                 return;
             }
-            for(int i=roomSize-1; i<=fieldY; i--){
+            for(int i=roomSize-1; i>=fieldY; i--){
                 currentRoom.fields[fieldY][i]=new Field(Field.TypeOfField.corridor);
+            }
+            fieldX=roomSize/2;
+            //if second is below
+            if(firstY<secondY){
+                for(int i=roomSize-1; i>fieldX; i--){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
+            }
+
+            //if second is above
+            if(firstY>secondY){
+                for(int i=0; i<fieldX; i++){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
             }
         }
 
@@ -138,7 +154,6 @@ public class LevelGenerator {
         if(firstX<secondX){
             for(int i=roomSize-1; i>=0; i--){
                 if(currentRoom.fields[(roomSize+1)/2][i]!=null && currentRoom.fields[(roomSize+1)/2][i].getType()!=Field.TypeOfField.wall){
-                    fieldY=(roomSize+1)/2;
                     fieldX=i;
                     break;
                 }
@@ -150,39 +165,54 @@ public class LevelGenerator {
             }
 
             //going right
+            roomX++;
             while(roomX!=secondX){
-                roomX++;
                 currentRoom=rooms[roomY][roomX];
                 //if met room on the way
-                if(!currentRoom.equals(new EmptyRoom())){
+                if(!currentRoom.equal(new EmptyRoom())){
                     fieldX=0;
                     while(currentRoom.fields[fieldY][fieldX]==null || currentRoom.fields[fieldY][fieldX].getType()==Field.TypeOfField.wall){
                         currentRoom.fields[fieldY][fieldX]=new Field(Field.TypeOfField.corridor);
                         fieldX++;
                     }
-                    roomList.get(first).connect(currentRoom);
+                    connect(roomList.get(first), currentRoom);
                     return;
                 }
                 //if theres no room
                 for(int i=0; i<roomSize; i++){
                     currentRoom.fields[fieldY][i]=new Field(Field.TypeOfField.corridor);
                 }
+                roomX++;
             }
 
             //filling to center
             currentRoom=rooms[roomY][roomX];
             //if met room on the way
-            if(!currentRoom.equals(new EmptyRoom())){
+            if(!currentRoom.equal(new EmptyRoom())){
                 fieldX=0;
                 while(currentRoom.fields[fieldY][fieldX]==null || currentRoom.fields[fieldY][fieldX].getType()==Field.TypeOfField.wall){
                     currentRoom.fields[fieldY][fieldX]=new Field(Field.TypeOfField.corridor);
                     fieldX++;
                 }
-                roomList.get(first).connect(currentRoom);
+                connect(roomList.get(first), currentRoom);
                 return;
             }
             for(int i=0; i<=fieldY; i++){
                 currentRoom.fields[fieldY][i]=new Field(Field.TypeOfField.corridor);
+            }
+            fieldX=roomSize/2;
+            //if second is below
+            if(firstY<secondY){
+                for(int i=roomSize-1; i>fieldX; i--){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
+            }
+
+            //if second is above
+            if(firstY>secondY){
+                for(int i=0; i<fieldX; i++){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
             }
         }
 
@@ -192,7 +222,6 @@ public class LevelGenerator {
             if(firstY<secondY){
                 for(int i=roomSize-1; i>=0; i--){
                     if(currentRoom.fields[i][fieldX]!=null && currentRoom.fields[i][fieldX].getType()!=Field.TypeOfField.wall){
-                        fieldX=(roomSize+1)/2;
                         fieldY=i;
                         break;
                     }
@@ -208,7 +237,6 @@ public class LevelGenerator {
             if(firstY>secondY){
                 for(int i=0; i<roomSize; i++){
                     if(currentRoom.fields[i][fieldX]!=null && currentRoom.fields[i][fieldX].getType()!=Field.TypeOfField.wall){
-                        fieldX=(roomSize+1)/2;
                         fieldY=i;
                         break;
                     }
@@ -221,14 +249,78 @@ public class LevelGenerator {
             }
         }
 
+        fieldX=roomSize/2;
+
         //if second is below
         if(firstY<secondY){
+            roomY++;
+            while(true){
+                currentRoom=rooms[roomY][roomX];
 
+                //if met room on the way
+                if(currentRoom.id!=-1){
+                    for(int i=0; i<roomSize; i++){
+                        if(currentRoom.fields[i][fieldX]!=null && currentRoom.fields[i][fieldX].getType()!= Field.TypeOfField.wall){
+                            break;
+                        }
+                        currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                    }
+
+                    connect(roomList.get(first), currentRoom);
+                    return;
+                }
+                for(int i=0; i<roomSize; i++){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
+                roomY++;
+            }
         }
 
         //if second is above
         if(firstY>secondY){
+            roomY--;
+            while(true){
+                currentRoom=rooms[roomY][roomX];
 
+                //if met room on the way
+                if(currentRoom.id!=-1){
+                    for(int i=roomSize-1; i>=0; i--){
+                        if(currentRoom.fields[i][fieldX]!=null && currentRoom.fields[i][fieldX].getType()!= Field.TypeOfField.wall){
+                            break;
+                        }
+                        currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                    }
+
+                    connect(roomList.get(first), currentRoom);
+                    return;
+                }
+                for(int i=0; i<roomSize; i++){
+                    currentRoom.fields[i][fieldX]=new Field(Field.TypeOfField.corridor);
+                }
+                roomY--;
+            }
         }
+    }
+
+    public boolean connect(Room room1, Room room2){
+        if(room1.connected.contains(room2.connected.get(0))){
+            return true;
+        }
+        ArrayList<Integer> temp=new ArrayList<>();
+        temp.addAll(room1.connected);
+        //if werent connected
+        for(Integer id: room1.connected){
+            if(id!=room1.id){
+                roomList.get(id).connected.addAll(room2.connected);
+            }
+        }
+        room1.connected.addAll(room2.connected);
+        for(Integer id: room2.connected){
+            if(id!=room2.id){
+                roomList.get(id).connected.addAll(temp);
+            }
+        }
+        room2.connected.addAll(temp);
+        return false;
     }
 }
