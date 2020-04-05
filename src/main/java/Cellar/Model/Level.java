@@ -6,6 +6,13 @@ public class Level {
     public Field[][] field;
     public int width;
     public int height;
+    public int playerX;
+    public int playerY;
+    public int entranceX;
+    public int entranceY;
+    public int exitX;
+    public int exitY;
+
 
     //width -- number of rooms in row
     //height -- number of rooms in column

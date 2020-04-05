@@ -1,6 +1,5 @@
 package Cellar.Controller;
 
-import Cellar.Model.Level;
 import Cellar.Model.LevelGenerator;
 import Cellar.Model.RoomGenerator;
 import javafx.animation.AnimationTimer;
@@ -12,11 +11,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Random;
-
 import static Cellar.Controller.Move.move;
 import static Cellar.Model.Model.*;
-import static Cellar.View.ShowLevel.showLevel;
 import static Cellar.View.View.show;
 
 
