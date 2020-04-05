@@ -66,8 +66,8 @@ public class LevelGenerator {
             int enx=rand.nextInt(roomSize-2)+1;
             int eny=rand.nextInt(roomSize-2)+1;
             //checking 3x3 square around
-            for(int i=enx-1; i<=enx+1; i++){
-                for(int j=eny-1; j<=eny+1; j++){
+            for(int i=eny-1; i<=eny+1; i++){
+                for(int j=enx-1; j<=enx+1; j++){
                     if(curr.fields[i][j]==null || curr.fields[i][j].getType()== Field.TypeOfField.wall){
                         found=false;
                     }
@@ -80,7 +80,6 @@ public class LevelGenerator {
         }
 
         //exit
-        //entrance
         found=false;
         curr=roomList.get(exitId);
         while(!found){
@@ -88,8 +87,8 @@ public class LevelGenerator {
             int enx=rand.nextInt(roomSize-2)+1;
             int eny=rand.nextInt(roomSize-2)+1;
             //checking 3x3 square around
-            for(int i=enx-1; i<=enx+1; i++){
-                for(int j=eny-1; j<=eny+1; j++){
+            for(int i=eny-1; i<=eny+1; i++){
+                for(int j=enx-1; j<=enx+1; j++){
                     if(curr.fields[i][j]==null || curr.fields[i][j].getType()== Field.TypeOfField.wall){
                         found=false;
                     }
@@ -135,8 +134,8 @@ public class LevelGenerator {
         gen.playerY=gen.entranceY;
 
         //printing in console
-        for(int i=0; i<77; i++){
-            for(int j=0; j<77; j++){
+        for(int i=0; i<roomSize*levelSize; i++){
+            for(int j=0; j<roomSize*levelSize; j++){
                 if(gen.field[i][j].getType()== Field.TypeOfField.wall){System.out.print(" ");}
                 else if(gen.field[i][j].getType()== Field.TypeOfField.corridor){System.out.print("O");}
                 else if(gen.field[i][j].getType()== Field.TypeOfField.entrance){System.out.print(".");}
@@ -223,7 +222,7 @@ public class LevelGenerator {
         //if second is on the right
         if(firstX<secondX){
             for(int i=roomSize-1; i>=0; i--){
-                if(currentRoom.fields[(roomSize+1)/2][i]!=null && currentRoom.fields[(roomSize+1)/2][i].getType()!= Field.TypeOfField.wall){
+                if(currentRoom.fields[fieldY][i]!=null && currentRoom.fields[fieldY][i].getType()!= Field.TypeOfField.wall){
                     fieldX=i;
                     break;
                 }
