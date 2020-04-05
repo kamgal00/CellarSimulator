@@ -2,6 +2,7 @@ package Cellar.Controller;
 
 import Cellar.Model.Level;
 import Cellar.Model.LevelGenerator;
+import Cellar.Model.RoomGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -53,10 +54,10 @@ public class Controller {
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
 
+            RoomGenerator.loadRoomGenerator();
             levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
             currentLevel=levels.get(currentLevelIndex);
-
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
                 if (key.getCode() == KeyCode.W) {
                     direction= Dir.up;
