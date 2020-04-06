@@ -54,6 +54,7 @@ public class Controller {
             levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
             currentLevel=levels.get(currentLevelIndex);
+
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
                 if (key.getCode() == KeyCode.W) {
                     direction= Dir.up;
@@ -78,6 +79,5 @@ public class Controller {
     public static void tick(GraphicsContext gc){
         show(gc);
         move();
-        //showLevel(gc);
     }
 }

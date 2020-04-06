@@ -1,6 +1,7 @@
 package Cellar.View;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import static Cellar.Model.Model.*;
@@ -17,5 +18,8 @@ public class View {
                 gc.fillRect(i*cornerSize, j*cornerSize, cornerSize-1, cornerSize-1);
             }
         }
+        Image jabuszko=new Image("file:resources/food1.png");
+        gc.drawImage(jabuszko, cornerSize, cornerSize, 10*cornerSize, 5*cornerSize);
+
     }
 }
