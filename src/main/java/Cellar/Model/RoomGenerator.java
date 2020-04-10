@@ -117,3 +117,55 @@ class RoomShapeManager{
         shapes.add(b);
     }
 }
+class Maze implements roomShapeGenerator{
+    class Pair{
+        public int x,y;
+        int noFriends;
+        public Pair(int a,int b)
+        {
+            x=a; y=b;
+            noFriends=0;
+        }
+        public boolean equals(Object o)
+        {
+            if(o==null) return false;
+            if(!(o instanceof Pair)) return false;
+            Pair a = (Pair) o;
+            if(a.x==x&&a.y==y) return true;
+            return false;
+        }
+    }
+    class Part{
+        ArrayList<Pair> fields = new ArrayList<>();
+        ArrayList<Pair> corner = new ArrayList<>();
+        void join(Part x)
+        {
+            fields.addAll(x.fields);
+            corner.addAll(x.corner);
+        }
+        public Part(Pair a)
+        {
+            fields.add(a);
+            corner.add(a);
+        }
+    }
+    Random rand = new Random();
+    ArrayList<Part> parts = new ArrayList<>();
+    public void fillRoom(Room x)
+    {
+        for(int i=1;i<10;i+=2)
+        {
+            for(int j=0;j<10;j+=2)
+            {
+                parts.add(new Part(new Pair(i,j)));
+            }
+        }
+        ArrayList<Integer> sides; //todo: skończ ten syf xD
+        while(parts.size()>1)
+        {
+            Part part = parts.get(rand.nextInt(parts.size()));
+            Pair pair = part.corner.get(rand.nextInt(part.corner.size()));
+
+        }
+    }
+}

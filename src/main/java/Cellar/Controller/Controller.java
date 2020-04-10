@@ -77,7 +77,7 @@ public class Controller {
 
     }
     public static void tick(GraphicsContext gc){
-        show(gc);
-        move();
+        show(gc); //todo: wyświetlanie poziomu (w klasie View)
+        move(); //
     }
 }

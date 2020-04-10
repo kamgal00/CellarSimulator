@@ -3,10 +3,10 @@ package Cellar.Model;
 import static Cellar.Model.Model.roomSize;
 
 public class Level {
-    public Field[][] field;
+    public Field[][] field; //todo: wyswietlanie pól
     public int width;
     public int height;
-    public int playerX;
+    public int playerX; //todo: w zależności od pola gracza
     public int playerY;
     public int entranceX;
     public int entranceY;
