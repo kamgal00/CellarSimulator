@@ -46,10 +46,9 @@ public class LevelGenerator {
         }
         int exitId=rand.nextInt(numberOfRooms);
         Room curr=roomList.get(entranceId);
-        while(!roomList.get(exitId).exitable){
+        while(!roomList.get(exitId).exitable || exitId==entranceId){
             exitId=rand.nextInt(numberOfRooms);
         }
-        while(exitId==entranceId){exitId=rand.nextInt(numberOfRooms);}
 
         //finding coordinates
         for(int i=0; i<levelSize; i++){ //by row
