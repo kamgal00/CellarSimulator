@@ -3,7 +3,10 @@ package Cellar.Model;
 import Cellar.Model.Rooms.BasicRoom;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static Cellar.Model.Model.*;
 public class RoomGenerator {
@@ -15,6 +18,7 @@ public class RoomGenerator {
         shapeGen=new RoomShapeManager();
         shapeGen.add(500,(Room x) -> //Basic rectangle
         {
+            x.exitable=true;
             int width = rand.nextInt(roomSize/2-1)+roomSize-roomSize/2;
             int height = rand.nextInt(roomSize/2-1)+roomSize-roomSize/2;
             int cornerY=rand.nextInt(roomSize-1-height);
@@ -76,6 +80,7 @@ public class RoomGenerator {
             x.fields[4][7].typeOfField= Field.TypeOfField.floor;
             x.fields[6][7].typeOfField= Field.TypeOfField.floor;
         });
+        shapeGen.add(25,new Maze());
     }
     int roomCounter;
     public RoomGenerator()
@@ -120,52 +125,72 @@ class RoomShapeManager{
 class Maze implements roomShapeGenerator{
     class Pair{
         public int x,y;
-        int noFriends;
+        Pair parent;
         public Pair(int a,int b)
         {
             x=a; y=b;
-            noFriends=0;
         }
-        public boolean equals(Object o)
+        /*public boolean equals(Object o)
         {
             if(o==null) return false;
             if(!(o instanceof Pair)) return false;
             Pair a = (Pair) o;
             if(a.x==x&&a.y==y) return true;
             return false;
-        }
-    }
-    class Part{
-        ArrayList<Pair> fields = new ArrayList<>();
-        ArrayList<Pair> corner = new ArrayList<>();
-        void join(Part x)
+        }*/
+        public boolean isClose(Pair c)
         {
-            fields.addAll(x.fields);
-            corner.addAll(x.corner);
-        }
-        public Part(Pair a)
-        {
-            fields.add(a);
-            corner.add(a);
+            if((c.x-x)*(c.x-x)+(c.y-y)*(c.y-y)==4) return true;
+            return false;
         }
     }
     Random rand = new Random();
-    ArrayList<Part> parts = new ArrayList<>();
     public void fillRoom(Room x)
     {
+        ArrayList<Pair> notPicked = new ArrayList<>();
+        ArrayList<Pair> notDone = new ArrayList<>();
+        ArrayList<Pair> done = new ArrayList<>();
         for(int i=1;i<10;i+=2)
         {
-            for(int j=0;j<10;j+=2)
+            for(int j=1;j<10;j+=2)
             {
-                parts.add(new Part(new Pair(i,j)));
+                notPicked.add(new Pair(i,j));
             }
         }
-        ArrayList<Integer> sides; //todo: skończ ten syf xD
-        while(parts.size()>1)
+        Pair s = notPicked.get(rand.nextInt(notPicked.size()));
+        Pair n=null;
+        notPicked.remove(s);
+        notDone.add(s);
+        while (!notDone.isEmpty())
         {
-            Part part = parts.get(rand.nextInt(parts.size()));
-            Pair pair = part.corner.get(rand.nextInt(part.corner.size()));
-
+            s = notDone.get(rand.nextInt(notDone.size()));
+            n=getChild(s,notPicked);
+            if(n==null)
+            {
+                notDone.remove(s);
+                done.add(s);
+                //System.out.println("niestety zyje 2");
+                continue;
+            }
+            n.parent=s;
+            notPicked.remove(n);
+            notDone.add(n);
+            //System.out.println("niestety zyje");
         }
+        done.stream().forEach(p->{
+            //System.out.println(p.x+" "+p.y);
+            x.fields[p.x][p.y].typeOfField= Field.TypeOfField.floor;
+            if(p.parent!=null)
+            {
+                x.fields[(p.x+p.parent.x)/2][(p.y+p.parent.y)/2].typeOfField= Field.TypeOfField.floor;
+            }
+        });
+        //System.out.println("siema");
+    }
+    Pair getChild(Pair s,ArrayList<Pair> notPicked)
+    {
+        ArrayList<Pair> close = new ArrayList<>(notPicked.stream().filter(x -> s.isClose(x)).collect(Collectors.toList()));
+        if(close.size()==0) return null;
+        return close.get(rand.nextInt(close.size()));
     }
 }

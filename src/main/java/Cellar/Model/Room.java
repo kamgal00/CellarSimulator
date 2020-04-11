@@ -8,6 +8,7 @@ public class Room {
 
     //data
     public int id;
+    public boolean exitable=false;
     ArrayList<Integer> connected=new ArrayList<>();
 
     public Field[][] fields=new Field[roomSize][roomSize];
