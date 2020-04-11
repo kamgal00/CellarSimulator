@@ -73,7 +73,6 @@ public class Controller {
             {
                 direction = Dir.none;
             });
-
         }catch (Exception e){
             e.printStackTrace();
         }
