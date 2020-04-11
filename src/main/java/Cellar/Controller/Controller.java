@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import static Cellar.Controller.Move.move;
 import static Cellar.Model.Model.*;
-import static Cellar.View.View.show;
+import static Cellar.Model.UberBrain.*;
 
 
 public class Controller {
@@ -78,7 +78,8 @@ public class Controller {
 
     }
     public static void tick(GraphicsContext gc){
-        show(gc); //todo: wyświetlanie poziomu (w klasie View)
+        brainTick(gc);
+        //show(gc); //todo: wyświetlanie poziomu (w klasie View)
         move(); //
     }
 }

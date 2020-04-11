@@ -3,7 +3,6 @@ package Cellar.Model;
 import Cellar.Model.Mobs.Player;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Model {
     public static int width = 15;
