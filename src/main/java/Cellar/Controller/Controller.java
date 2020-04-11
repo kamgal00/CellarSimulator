@@ -69,6 +69,10 @@ public class Controller {
                     direction= Dir.right;
                 }
             });
+            scene.addEventFilter(KeyEvent.KEY_RELEASED, key->
+            {
+                direction = Dir.none;
+            });
 
         }catch (Exception e){
             e.printStackTrace();

@@ -24,7 +24,7 @@ public class UberBrain {
                         player.y--;
                         turn=true;
                     }
-                    direction=Dir.none;
+                    //direction=Dir.none;
                     break;
                 case down:
                     if(currentLevel.field[player.y+1][player.x].getType()!= Field.TypeOfField.wall){
@@ -32,7 +32,7 @@ public class UberBrain {
                         player.y++;
                         turn=true;
                     }
-                    direction=Dir.none;
+                    //direction=Dir.none;
                     break;
                 case left:
                     if(currentLevel.field[player.y][player.x-1].getType()!= Field.TypeOfField.wall){
@@ -40,7 +40,7 @@ public class UberBrain {
                         player.x--;
                         turn=true;
                     }
-                    direction=Dir.none;
+                    //direction=Dir.none;
                     break;
                 case right:
                     if(currentLevel.field[player.y][player.x+1].getType()!= Field.TypeOfField.wall){
@@ -48,7 +48,7 @@ public class UberBrain {
                         player.x++;
                         turn=true;
                     }
-                    direction=Dir.none;
+                    //direction=Dir.none;
                     break;
             }
             showBackground(gc);
