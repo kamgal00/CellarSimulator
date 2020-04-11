@@ -1,7 +1,5 @@
 package Cellar.Controller;
 
-import Cellar.Model.LevelGenerator;
-import Cellar.Model.RoomGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,8 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static Cellar.Controller.Move.move;
 import static Cellar.Model.Model.*;
+import static Cellar.Model.Preparations.prepareLevels;
 import static Cellar.Model.UberBrain.*;
 
 
@@ -50,11 +48,8 @@ public class Controller {
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
 
-            RoomGenerator.loadRoomGenerator();
-            levelGenerator=new LevelGenerator();
-            levels.add(levelGenerator.levelGenerate());
-            currentLevel=levels.get(currentLevelIndex);
-            currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
+            prepareLevels();
+
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
                 if (key.getCode() == KeyCode.W) {
                     direction= Dir.up;
@@ -82,6 +77,6 @@ public class Controller {
     public static void tick(GraphicsContext gc){
         brainTick(gc);
         //show(gc); //todo: wyświetlanie poziomu (w klasie View)
-        move(); //
+        //move(); //
     }
 }
