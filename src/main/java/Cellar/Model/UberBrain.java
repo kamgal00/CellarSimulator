@@ -40,6 +40,7 @@ public class UberBrain {
                     break;
                 case left:
                     if(currentLevel.field[player.y][player.x-1].getType()!= Field.TypeOfField.wall){
+                        playerTexture=playerLeft;
                         //todo: moveMob
                         player.x--;
                         turn=true;
@@ -48,6 +49,7 @@ public class UberBrain {
                     break;
                 case right:
                     if(currentLevel.field[player.y][player.x+1].getType()!= Field.TypeOfField.wall){
+                        playerTexture=playerRight;
                         //todo: moveMob
                         player.x++;
                         turn=true;
