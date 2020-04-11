@@ -2,6 +2,7 @@ package Cellar.View;
 
 import Cellar.Model.Field;
 import Cellar.Model.Mobs.Mob;
+import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -13,6 +14,9 @@ public class View {
 
     static Image floorTexture=new Image("file:resources/floor.png");
     static Image wallTexture=new Image("file:resources/bricks.png");
+    public static Image playerLeft=new Image("file:resources/manleft.png");
+    public static Image playerRight=new Image("file:resources/manright.png");
+    public static Image playerTexture=playerRight;
 
     public static void showBackground(GraphicsContext gc){
         gc.setFill(Color.DARKBLUE);
@@ -52,7 +56,12 @@ public class View {
     }
 
     public static void showMob(Mob mob, GraphicsContext gc){
-        gc.setFill(Color.PINK);
-        gc.fillOval((player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
+        if(mob.getClass().isAssignableFrom(Player.class)){
+            gc.drawImage(playerTexture, (player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
+        }
+        else {
+            gc.setFill(Color.PINK);
+            gc.fillOval((player.x - mob.x + width / 2) * cornerSize, (player.y - mob.y + height / 2) * cornerSize, cornerSize, cornerSize);
+        }
     }
 }
