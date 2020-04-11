@@ -1,6 +1,7 @@
 package Cellar.Model;
 
 import Cellar.Model.Mobs.Mob;
+import Cellar.Model.Mobs.Player;
 
 import java.util.ArrayList;
 
@@ -8,10 +9,10 @@ import static Cellar.Model.Model.levelSize;
 import static Cellar.Model.Model.roomSize;
 
 public class Level {
-    public Field[][] field; //todo: wyswietlanie pól
+    public Field[][] field;
     public int width;
     public int height;
-    public int playerX; //todo: w zależności od pola gracza
+    public int playerX;
     public int playerY;
     public int entranceX;
     public int entranceY;
@@ -28,6 +29,7 @@ public class Level {
         this.height=height;
         //field[n][m] -- n-th row, m-th column
         field=new Field[height*roomSize][width*roomSize];
+        mobs.add(new Player(this));
     }
 
     public void fuse(Room[][] rooms){

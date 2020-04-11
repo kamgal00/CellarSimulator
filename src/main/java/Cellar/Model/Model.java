@@ -19,5 +19,5 @@ public class Model {
     public static ArrayList<Level> levels=new ArrayList<>();
     public static int currentLevelIndex=0;
     public static Level currentLevel;
-    public static Player player=new Player();
+    public static Player player=new Player(currentLevel);
 }
