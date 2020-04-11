@@ -1,5 +1,10 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.Mob;
+
+import java.util.ArrayList;
+
+import static Cellar.Model.Model.levelSize;
 import static Cellar.Model.Model.roomSize;
 
 public class Level {
@@ -12,6 +17,8 @@ public class Level {
     public int entranceY;
     public int exitX;
     public int exitY;
+    public ArrayList<Mob> mobs=new ArrayList<>();
+    public ArrayList<Class<Mob>> mobTypes=new ArrayList<>();
 
 
     //width -- number of rooms in row
@@ -39,6 +46,21 @@ public class Level {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public void addMob(Mob mob, int y, int x){
+        mob.y=y;
+        mob.x=x;
+
+        mobs.add(mob);
+    }
+
+    public void cleanDistance(){
+        for(int i=0; i<levelSize*roomSize; i++){
+            for(int j=0; j<levelSize*roomSize; j++){
+                field[i][j].distance=-1;
             }
         }
     }

@@ -54,6 +54,7 @@ public class Controller {
             levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
             currentLevel=levels.get(currentLevelIndex);
+            currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
                 if (key.getCode() == KeyCode.W) {

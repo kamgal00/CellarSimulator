@@ -1,6 +1,7 @@
 package Cellar.Model;
 
 public class Field {
+    int distance;
 
     TypeOfField typeOfField;
 
