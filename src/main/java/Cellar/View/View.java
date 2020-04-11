@@ -17,6 +17,8 @@ public class View {
     public static Image playerLeft=new Image("file:resources/manleft.png");
     public static Image playerRight=new Image("file:resources/manright.png");
     public static Image playerTexture=playerRight;
+    public static Image exitTexture=new Image("file:resources/exit.png");
+    public static Image entranceTexture=new Image("file:resources/entrance.png");
 
     public static void showBackground(GraphicsContext gc){
         gc.setFill(Color.DARKBLUE);
@@ -45,12 +47,11 @@ public class View {
                 gc.drawImage(floorTexture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
                 break;
             case exit:
-                gc.setFill(Color.RED);
-                gc.fillRect(x*cornerSize, y*cornerSize, cornerSize, cornerSize);
+                gc.drawImage(exitTexture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
                 break;
             case entrance:
-                gc.setFill(Color.ORANGE);
-                gc.fillRect(x*cornerSize, y*cornerSize, cornerSize, cornerSize);
+                gc.drawImage(floorTexture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
+                gc.drawImage(entranceTexture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
                 break;
         }
     }
