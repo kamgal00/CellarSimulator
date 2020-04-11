@@ -4,6 +4,7 @@ import Cellar.Model.Rooms.BasicRoom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -189,7 +190,7 @@ class Maze implements roomShapeGenerator{
     }
     Pair getChild(Pair s,ArrayList<Pair> notPicked)
     {
-        ArrayList<Pair> close = new ArrayList<>(notPicked.stream().filter(x -> s.isClose(x)).collect(Collectors.toList()));
+        List<Pair> close = notPicked.stream().filter(s::isClose).collect(Collectors.toList());
         if(close.size()==0) return null;
         return close.get(rand.nextInt(close.size()));
     }
