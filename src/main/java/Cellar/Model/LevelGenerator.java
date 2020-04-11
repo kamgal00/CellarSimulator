@@ -41,8 +41,14 @@ public class LevelGenerator {
 
         //generating entrance and exit
         int entranceId=rand.nextInt(numberOfRooms);
+        while(!roomList.get(entranceId).exitable){
+            entranceId=rand.nextInt(numberOfRooms);
+        }
         int exitId=rand.nextInt(numberOfRooms);
         Room curr=roomList.get(entranceId);
+        while(!roomList.get(exitId).exitable){
+            exitId=rand.nextInt(numberOfRooms);
+        }
         while(exitId==entranceId){exitId=rand.nextInt(numberOfRooms);}
 
         //finding coordinates
