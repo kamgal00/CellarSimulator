@@ -1,7 +1,11 @@
 package Cellar.Model.Mobs;
 
+import Cellar.Model.Field;
 import Cellar.Model.Level;
 import Cellar.Model.Model;
+import javafx.scene.image.Image;
+
+import static Cellar.Model.Model.direction;
 
 public abstract class Mob {
     public int hp;
@@ -12,12 +16,16 @@ public abstract class Mob {
     public int y;
     public Level world;
     public Mob attackedMob;
+    public enum actionType{none, up,down,left,right,pickup,attack}
+    public actionType currentAction;
+    public Image leftIm,rightIm,currIm;
     public Mob(Level world)
     {
         this.world=world;
         setParams();
         currentAction=actionType.none;
         attackedMob=null;
+        currIm=rightIm;
     }
     public boolean isHere(int y,int x)
     {
@@ -33,10 +41,9 @@ public abstract class Mob {
     }
     public abstract void setParams();
     public abstract void moveMob();
-    public enum actionType{none, up,down,left,right,pickup,attack}
-    public actionType currentAction;
     public void attack(Mob enemy)
     {
+        System.out.println(this.getClass().getName()+" attacked "+enemy.getClass().getName()+"!");
         currentAction=actionType.attack;
     }
     public boolean isVisible()
@@ -46,5 +53,89 @@ public abstract class Mob {
     public String toString()
     {
         return this.getClass().toString()+" "+y+" "+x;
+    }
+    public Mob move(Model.Dir direct)
+    {
+        switch (direct)
+        {
+            case none:
+                currentAction=actionType.none;
+                return this;
+            case up:
+                if(world.field[y-1][x].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y-1][x].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        y--;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.up;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y-1][x].mob;
+                    }
+                }
+                else return null;
+            case down:
+                if(world.field[y+1][x].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y+1][x].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        y++;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.down;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y+1][x].mob;
+                    }
+                }
+                else return null;
+            case left:
+                currIm=leftIm;
+                if(world.field[y][x-1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y][x-1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x--;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.left;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y][x-1].mob;
+                    }
+                }
+                else return null;
+            case right:
+                currIm=rightIm;
+                if(world.field[y][x+1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y][x+1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x++;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.right;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y][x+1].mob;
+                    }
+                }
+                else return null;
+        }
+        return null;
     }
 }

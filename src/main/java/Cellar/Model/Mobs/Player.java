@@ -24,7 +24,16 @@ public class Player extends Mob {
     }
     @Override
     public void moveMob() {
-        switch (direction)
+        Mob en = move(direction);
+        if(en!=this)
+        {
+            if(en==null) return;
+            if(en instanceof Enemy)
+            {
+                attack(en);
+            }
+        }
+        /*switch (direction)
         {
             case none:
                 currentAction=actionType.none;
@@ -105,6 +114,6 @@ public class Player extends Mob {
                 }
                 else currentAction=actionType.none;
                 break;
-        }
+        }*/
     }
 }
