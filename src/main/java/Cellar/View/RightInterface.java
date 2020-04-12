@@ -32,7 +32,7 @@ public class RightInterface {
                         gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                     if(j==player.y && i==player.x){
-                        gc.setFill(Color.DARKBLUE);
+                        gc.setFill(Color.LIGHTBLUE);
                         gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                 }
