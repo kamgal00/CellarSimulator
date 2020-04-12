@@ -1,5 +1,6 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayDeque;
@@ -11,54 +12,29 @@ import static Cellar.Model.Model.*;
 
 public class UberBrain {
 
-
     private Field currentField;
 
     public static void brainTick(GraphicsContext gc){
-        boolean turn=false;
-        if(direction == Model.Dir.none){
-            showBackground(gc);
-            //todo: show all mobs
-            showMob(player, gc);
-        }
-        else {
-            switch (direction){
-                case up:
-                    if(currentLevel.field[player.y-1][player.x].getType()!= Field.TypeOfField.wall){
-                        //todo: moveMob
-                        player.y--;
-                        turn=true;
-                    }
-                    //direction=Dir.none;
-                    break;
-                case down:
-                    if(currentLevel.field[player.y+1][player.x].getType()!= Field.TypeOfField.wall){
-                        //todo: moveMob
-                        player.y++;
-                        turn=true;
-                    }
-                    //direction=Dir.none;
-                    break;
-                case left:
-                    if(currentLevel.field[player.y][player.x-1].getType()!= Field.TypeOfField.wall){
-                        playerTexture=playerLeft;
-                        //todo: moveMob
-                        player.x--;
-                        turn=true;
-                    }
-                    //direction=Dir.none;
-                    break;
-                case right:
-                    if(currentLevel.field[player.y][player.x+1].getType()!= Field.TypeOfField.wall){
-                        playerTexture=playerRight;
-                        //todo: moveMob
-                        player.x++;
-                        turn=true;
-                    }
-                    //direction=Dir.none;
-                    break;
-            }
+        boolean turn=true;
+        player.moveMob();
+        switch (player.currentAction) {
+            case none:
+                showBackground(gc);
+                currentLevel.mobs.stream().forEach(mob ->{
+                    showMob(mob,gc);
+                });
+                turn=false;
+                break;
+            case left:
+                playerTexture=playerLeft;
+                break;
+            case right:
+                playerTexture=playerRight;
+                break;
 
+        }
+        if(turn)
+        {
             boolean changedLevel=false;
             //nextLevel
             if(currentLevelIndex<maxLevel-1){
@@ -67,6 +43,7 @@ public class UberBrain {
                     currentLevel.mobs.remove(player);
                     currentLevel=levels.get(currentLevelIndex);
                     currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
+                    player.world=currentLevel;
                     changedLevel=true;
                 }
             }
@@ -78,13 +55,18 @@ public class UberBrain {
                     currentLevel.mobs.remove(player);
                     currentLevel=levels.get(currentLevelIndex);
                     currentLevel.addMob(player, currentLevel.exitY, currentLevel.exitX);
+                    player.world=currentLevel;
                 }
             }
             discover();
             showBackground(gc);
             calculateDistance();
             showMob(player, gc);
-
+            currentLevel.mobs.stream().forEach(mob -> {
+                if(mob instanceof Player) return;
+                mob.moveMob();
+                showMob(mob,gc);
+            });
         }
         showRightInterface();
     }

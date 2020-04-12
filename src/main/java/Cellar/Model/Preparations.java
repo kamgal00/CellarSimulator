@@ -1,5 +1,7 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.Zombie;
+
 import static Cellar.Model.Model.*;
 
 public class Preparations {
@@ -14,5 +16,7 @@ public class Preparations {
 
         currentLevel=levels.get(0);
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
+        currentLevel.addMob(new Zombie(currentLevel),currentLevel.exitY+1, currentLevel.exitX);
+        player.world=currentLevel;
     }
 }

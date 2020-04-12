@@ -1,7 +1,7 @@
 package Cellar.Model;
 
 public class Field {
-    int distance;
+    public int distance;
 
     TypeOfField typeOfField;
     public boolean discovered=false;

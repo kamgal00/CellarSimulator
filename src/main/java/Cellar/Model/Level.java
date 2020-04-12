@@ -29,7 +29,6 @@ public class Level {
         this.height=height;
         //field[n][m] -- n-th row, m-th column
         field=new Field[height*roomSize][width*roomSize];
-        mobs.add(new Player(this));
     }
 
     public void fuse(Room[][] rooms){

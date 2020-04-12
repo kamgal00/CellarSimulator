@@ -61,8 +61,9 @@ public class View {
             gc.drawImage(playerTexture, (player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
         }
         else {
+            if(!mob.isVisible()) return;
             gc.setFill(Color.PINK);
-            gc.fillOval((player.x - mob.x + width / 2) * cornerSize, (player.y - mob.y + height / 2) * cornerSize, cornerSize, cornerSize);
+            gc.fillOval(( mob.x-player.x + width / 2) * cornerSize, (mob.y - player.y + height / 2) * cornerSize, cornerSize, cornerSize);
         }
     }
 }
