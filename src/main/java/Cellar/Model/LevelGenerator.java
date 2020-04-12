@@ -138,6 +138,7 @@ public class LevelGenerator {
         gen.playerX=gen.entranceX;
         gen.playerY=gen.entranceY;
 
+        /*
         //printing in console
         for(int i=0; i<roomSize*levelSize; i++){
             for(int j=0; j<roomSize*levelSize; j++){
@@ -148,7 +149,7 @@ public class LevelGenerator {
                 else{System.out.print("X");}
             }
             System.out.println(" ");
-        }
+        }*/
         return gen;
     }
 
