@@ -1,6 +1,7 @@
 package Cellar.Model;
 
 import Cellar.Model.Mobs.Player;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
@@ -20,4 +21,5 @@ public class Model {
     public static int currentLevelIndex=0;
     public static Level currentLevel;
     public static Player player=new Player(currentLevel);
+    public static GraphicsContext gc;
 }

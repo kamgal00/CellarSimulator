@@ -23,9 +23,9 @@ public class View {
     public static void showBackground(GraphicsContext gc){
         gc.setFill(Color.DARKBLUE);
         gc.fillRect(0, 0, width * cornerSize, height * cornerSize);
-        for(int i=0; i<=height; i++){
+        for(int i=0; i<height; i++){
             int y=player.y+i-height/2;
-            for (int j=0; j<=width; j++){
+            for (int j=0; j<width; j++){
                 int x=player.x+j-width/2;
                 if(x<0 || y<0 || x>=levelSize*roomSize || y>=levelSize*roomSize){
                     showField(new Field(Field.TypeOfField.wall), j, i, gc);

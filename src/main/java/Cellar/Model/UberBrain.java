@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayDeque;
 
+import static Cellar.View.RightInterface.showRightInterface;
 import static Cellar.View.View.*;
 
 import static Cellar.Model.Model.*;
@@ -79,12 +80,13 @@ public class UberBrain {
                     currentLevel.addMob(player, currentLevel.exitY, currentLevel.exitX);
                 }
             }
-
+            discover();
             showBackground(gc);
             calculateDistance();
             showMob(player, gc);
 
         }
+        showRightInterface();
     }
 
     static void calculateDistance(){
@@ -144,6 +146,21 @@ public class UberBrain {
                 else if(currentLevel.field[currY][currX+1].distance>currentLevel.field[currY][currX].distance+1){
                     currentLevel.field[currY][currX+1].distance=currentLevel.field[currY][currX].distance+1;
                 }
+            }
+        }
+    }
+
+    static void discover(){
+        for(int i=0; i<height; i++){
+            int y=player.y+i-height/2;
+            for (int j=0; j<width; j++){
+                int x=player.x+j-width/2;
+                if( !(x<0 || y<0 || x>=levelSize*roomSize || y>=levelSize*roomSize)){
+                    if(currentLevel.field[y][x].getType()!= Field.TypeOfField.wall) {
+                        currentLevel.field[y][x].setDiscovered(true);
+                    }
+                }
+
             }
         }
     }

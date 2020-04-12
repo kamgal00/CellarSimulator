@@ -20,8 +20,8 @@ public class Controller {
         try{
 
             VBox root = new VBox();
-            Canvas c = new Canvas(width * cornerSize, height * cornerSize);
-            GraphicsContext gc = c.getGraphicsContext2D();
+            Canvas c = new Canvas((width+6) * cornerSize, height * cornerSize);
+            gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
 
             new AnimationTimer() {
@@ -42,11 +42,12 @@ public class Controller {
 
             }.start();
 
-            Scene scene = new Scene(root, width * cornerSize, height * cornerSize);
+            Scene scene = new Scene(root, (width+6) * cornerSize, height * cornerSize);
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
+            primaryStage.setResizable(false);
 
             prepareLevels();
 
@@ -76,7 +77,5 @@ public class Controller {
     }
     public static void tick(GraphicsContext gc){
         brainTick(gc);
-        //show(gc); //todo: wyświetlanie poziomu (w klasie View)
-        //move(); //
     }
 }
