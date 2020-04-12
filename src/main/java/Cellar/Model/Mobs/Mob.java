@@ -78,7 +78,11 @@ public abstract class Mob {
                         return world.field[y-1][x].mob;
                     }
                 }
-                else return null;
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
             case down:
                 if(world.field[y+1][x].getType()!= Field.TypeOfField.wall)
                 {
@@ -96,7 +100,11 @@ public abstract class Mob {
                         return world.field[y+1][x].mob;
                     }
                 }
-                else return null;
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
             case left:
                 currIm=leftIm;
                 if(world.field[y][x-1].getType()!= Field.TypeOfField.wall)
@@ -115,7 +123,11 @@ public abstract class Mob {
                         return world.field[y][x-1].mob;
                     }
                 }
-                else return null;
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
             case right:
                 currIm=rightIm;
                 if(world.field[y][x+1].getType()!= Field.TypeOfField.wall)
@@ -134,7 +146,11 @@ public abstract class Mob {
                         return world.field[y][x+1].mob;
                     }
                 }
-                else return null;
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
         }
         return null;
     }
