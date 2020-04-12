@@ -24,7 +24,23 @@ public abstract class WalkingEnemy extends Enemy {
         {
             return Model.Dir.none;
         }
-        if(world.field[y+1][x].distance==dist-1)
+        else if(world.field[y+1][x+1].distance==dist-2)
+        {
+            return Model.Dir.rightDown;
+        }
+        else if(world.field[y+1][x-1].distance==dist-2)
+        {
+            return Model.Dir.leftDown;
+        }
+        else if(world.field[y-1][x+1].distance==dist-2)
+        {
+            return Model.Dir.rightUp;
+        }
+        else if(world.field[y-1][x-1].distance==dist-2)
+        {
+            return Model.Dir.leftUp;
+        }
+        else if(world.field[y+1][x].distance==dist-1)
         {
             return Model.Dir.down;
         }

@@ -16,7 +16,7 @@ public abstract class Mob {
     public int y;
     public Level world;
     public Mob attackedMob;
-    public enum actionType{none, up,down,left,right,pickup,attack}
+    public enum actionType{none, up,down,left,right,leftUp,leftDown,rightUp,rightDown,pickup,attack}
     public actionType currentAction;
     public Image leftIm,rightIm,currIm;
     public Mob(Level world)
@@ -144,6 +144,102 @@ public abstract class Mob {
                     {
                         currentAction=actionType.none;
                         return world.field[y][x+1].mob;
+                    }
+                }
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
+            case rightUp:
+                currIm=rightIm;
+                if(world.field[y-1][x+1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y-1][x+1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x++;
+                        y--;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.rightUp;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y-1][x+1].mob;
+                    }
+                }
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
+            case rightDown:
+                currIm=rightIm;
+                if(world.field[y+1][x+1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y+1][x+1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x++;
+                        y++;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.rightDown;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y][x+1].mob;
+                    }
+                }
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
+            case leftUp:
+                currIm=leftIm;
+                if(world.field[y-1][x-1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y-1][x-1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x--;
+                        y--;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.leftUp;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y-1][x-1].mob;
+                    }
+                }
+                else
+                {
+                    currentAction= actionType.none;
+                    return null;
+                }
+            case leftDown:
+                currIm=leftIm;
+                if(world.field[y+1][x-1].getType()!= Field.TypeOfField.wall)
+                {
+                    if(world.field[y+1][x-1].mob==null)
+                    {
+                        world.field[y][x].mob=null;
+                        x--;
+                        y++;
+                        world.field[y][x].mob=this;
+                        currentAction=actionType.leftDown;
+                        return this;
+                    }
+                    else
+                    {
+                        currentAction=actionType.none;
+                        return world.field[y+1][x-1].mob;
                     }
                 }
                 else

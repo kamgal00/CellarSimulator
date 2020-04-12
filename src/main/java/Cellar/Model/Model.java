@@ -14,12 +14,12 @@ public class Model {
     public static int maxLevel=10;
     public static Dir direction= Dir.none;
     public enum Dir {
-        left, right, up, down, none
+        left, right, up, down, none,leftDown,leftUp,rightDown,rightUp
     }
 
     public static ArrayList<Level> levels=new ArrayList<>();
     public static int currentLevelIndex=0;
     public static Level currentLevel;
-    public static Player player=new Player(currentLevel);
+    public static Player player=new Player(null);
     public static GraphicsContext gc;
 }
