@@ -2,13 +2,11 @@ package Cellar.Model.Mobs;
 import Cellar.Model.Field;
 import Cellar.Model.Level;
 import Cellar.Model.Model.*;
+import javafx.scene.image.Image;
 
 import java.util.Optional;
 
 import static Cellar.Model.Model.*;
-import static Cellar.Model.Model.player;
-import static Cellar.View.View.*;
-import static Cellar.View.View.playerRight;
 
 public class Player extends Mob {
     public Player(Level world)
@@ -21,6 +19,8 @@ public class Player extends Mob {
         hp=100;
         attack=15;
         defense=5;
+        rightIm=new Image("file:resources/manright.png");
+        leftIm=new Image("file:resources/manleft.png");
     }
     @Override
     public void moveMob() {

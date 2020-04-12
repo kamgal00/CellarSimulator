@@ -25,13 +25,6 @@ public class UberBrain {
                 });
                 turn=false;
                 break;
-            case left:
-                playerTexture=playerLeft;
-                break;
-            case right:
-                playerTexture=playerRight;
-                break;
-
         }
         if(turn)
         {

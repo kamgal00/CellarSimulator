@@ -3,6 +3,8 @@ package Cellar.Model.Mobs;
 import Cellar.Model.Level;
 import Cellar.Model.Model;
 import Cellar.Model.Model.*;
+import javafx.scene.image.Image;
+
 public class Zombie extends WalkingEnemy{
     public Zombie(Level world){super(world);}
     @Override
@@ -12,5 +14,7 @@ public class Zombie extends WalkingEnemy{
         hp=50;
         attack=7;
         defense=4;
+        rightIm=new Image("file:resources/mobs/ratRight.png");
+        leftIm=new Image("file:resources/mobs/ratLeft.png");
     }
 }

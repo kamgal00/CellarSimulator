@@ -14,9 +14,6 @@ public class View {
 
     static Image floorTexture=new Image("file:resources/floor.png");
     static Image wallTexture=new Image("file:resources/bricks.png");
-    public static Image playerLeft=new Image("file:resources/manleft.png");
-    public static Image playerRight=new Image("file:resources/manright.png");
-    public static Image playerTexture=playerRight;
     public static Image exitTexture=new Image("file:resources/exit.png");
     public static Image entranceTexture=new Image("file:resources/entrance.png");
 
@@ -58,12 +55,11 @@ public class View {
 
     public static void showMob(Mob mob){
         if(mob.getClass().isAssignableFrom(Player.class)){
-            gc.drawImage(playerTexture, (player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
+            gc.drawImage(mob.currIm, (player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
         }
         else {
             if(!mob.isVisible()) return;
-            gc.setFill(Color.PINK);
-            gc.fillOval(( mob.x-player.x + width / 2) * cornerSize, (mob.y - player.y + height / 2) * cornerSize, cornerSize, cornerSize);
+            gc.drawImage(mob.currIm,  (mob.x-player.x + width / 2) * cornerSize, (mob.y - player.y + height / 2) * cornerSize, cornerSize, cornerSize);
         }
     }
 }
