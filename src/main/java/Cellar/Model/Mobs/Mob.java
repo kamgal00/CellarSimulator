@@ -191,7 +191,7 @@ public abstract class Mob {
                     else
                     {
                         currentAction=actionType.none;
-                        return world.field[y][x+1].mob;
+                        return world.field[y+1][x+1].mob;
                     }
                 }
                 else
