@@ -10,27 +10,30 @@ import javafx.scene.text.Font;
 
 public class RightInterface {
     public static Image interfaceBackground=new Image("file:resources/rightInterface.png");
+    public static Image minimapBackground=new Image("file:resources/minimap.png");
+
 
     public static void showRightInterface(){
         gc.drawImage(interfaceBackground, width*cornerSize, 0, 6*cornerSize, height*cornerSize);
 
         //show minimap
+        gc.drawImage(minimapBackground, width*cornerSize, 0, 6*cornerSize, 6*cornerSize );
         for(int i=0; i<levelSize*roomSize; i++){ //by row
             for (int j=0; j<levelSize*roomSize; j++){ //by column
                 if(currentLevel.field[j][i].discovered){
                     gc.setFill(Color.BLACK);
-                    gc.fillRect(width*cornerSize+cornerSize/2+3*i, 10+3*j, 3, 3);
+                    gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     if(currentLevel.field[j][i].getType()== Field.TypeOfField.entrance){
                         gc.setFill(Color.DARKRED);
-                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 10+3*j, 3, 3);
+                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                     if(currentLevel.field[j][i].getType()== Field.TypeOfField.exit){
                         gc.setFill(Color.DARKGREEN);
-                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 10+3*j, 3, 3);
+                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                     if(j==player.y && i==player.x){
                         gc.setFill(Color.DARKBLUE);
-                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 10+3*j, 3, 3);
+                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                 }
             }
