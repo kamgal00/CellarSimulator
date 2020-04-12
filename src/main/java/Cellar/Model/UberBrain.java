@@ -53,7 +53,7 @@ public class UberBrain {
                     player.world=currentLevel;
                 }
             }
-            generateEnemy();
+            generateEnemy(); //todo: zrobić aby moby nie pojawiały się na naszych oczach
             discover();
             showBackground(gc);
             calculateDistance();

@@ -24,38 +24,69 @@ public abstract class WalkingEnemy extends Enemy {
         {
             return Model.Dir.none;
         }
-        else if(world.field[y+1][x+1].distance==dist-2)
+        if(dist>1)
         {
-            return Model.Dir.rightDown;
+            if(world.field[y+1][x+1].distance==dist-2)
+            {
+                if(world.field[y+1][x+1].mob==null||world.field[y+1][x+1].mob instanceof Player)
+                return Model.Dir.rightDown;
+            }
+            if(world.field[y+1][x-1].distance==dist-2)
+            {
+                if(world.field[y+1][x-1].mob==null||world.field[y+1][x-1].mob instanceof Player)
+                return Model.Dir.leftDown;
+            }
+            if(world.field[y-1][x+1].distance==dist-2)
+            {
+                if(world.field[y-1][x+1].mob==null||world.field[y-1][x+1].mob instanceof Player)
+                return Model.Dir.rightUp;
+            }
+            if(world.field[y-1][x-1].distance==dist-2)
+            {
+                if(world.field[y-1][x-1].mob==null||world.field[y-1][x-1].mob instanceof Player)
+                return Model.Dir.leftUp;
+            }
         }
-        else if(world.field[y+1][x-1].distance==dist-2)
+        if(world.field[y+1][x].distance==dist-1)
         {
-            return Model.Dir.leftDown;
-        }
-        else if(world.field[y-1][x+1].distance==dist-2)
-        {
-            return Model.Dir.rightUp;
-        }
-        else if(world.field[y-1][x-1].distance==dist-2)
-        {
-            return Model.Dir.leftUp;
-        }
-        else if(world.field[y+1][x].distance==dist-1)
-        {
+            if(world.field[y+1][x].mob==null||world.field[y+1][x].mob instanceof Player)
             return Model.Dir.down;
         }
-        else if(world.field[y-1][x].distance==dist-1)
+        if(world.field[y-1][x].distance==dist-1)
         {
+            if(world.field[y-1][x].mob==null||world.field[y-1][x].mob instanceof Player)
             return Model.Dir.up;
         }
-        else if(world.field[y][x-1].distance==dist-1)
+        if(world.field[y][x-1].distance==dist-1)
         {
+            if(world.field[y][x-1].mob==null||world.field[y][x-1].mob instanceof Player)
             return Model.Dir.left;
         }
-        else if(world.field[y][x+1].distance==dist-1)
+        if(world.field[y][x+1].distance==dist-1)
         {
+            if(world.field[y][x+1].mob==null||world.field[y][x+1].mob instanceof Player)
             return Model.Dir.right;
         }
-        return null;
+        if(world.field[y+1][x+1].distance==dist)
+        {
+            if(world.field[y+1][x+1].mob==null||world.field[y+1][x+1].mob instanceof Player)
+                return Model.Dir.rightDown;
+        }
+        if(world.field[y+1][x-1].distance==dist)
+        {
+            if(world.field[y+1][x-1].mob==null||world.field[y+1][x-1].mob instanceof Player)
+                return Model.Dir.leftDown;
+        }
+        if(world.field[y-1][x+1].distance==dist)
+        {
+            if(world.field[y-1][x+1].mob==null||world.field[y-1][x+1].mob instanceof Player)
+                return Model.Dir.rightUp;
+        }
+        if(world.field[y-1][x-1].distance==dist)
+        {
+            if(world.field[y-1][x-1].mob==null||world.field[y-1][x-1].mob instanceof Player)
+                return Model.Dir.leftUp;
+        }
+        return Model.Dir.none;
     }
 }
