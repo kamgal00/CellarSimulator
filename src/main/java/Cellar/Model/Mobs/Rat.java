@@ -5,8 +5,8 @@ import Cellar.Model.Model;
 import Cellar.Model.Model.*;
 import javafx.scene.image.Image;
 
-public class Zombie extends WalkingEnemy{
-    public Zombie(Level world){super(world);}
+public class Rat extends WalkingEnemy{
+    public Rat(Level world){super(world);}
     @Override
     public void setParams()
     {
