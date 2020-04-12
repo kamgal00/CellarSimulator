@@ -1,9 +1,11 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayDeque;
+import java.util.Random;
 
 import static Cellar.View.RightInterface.showRightInterface;
 import static Cellar.View.View.*;
@@ -51,6 +53,7 @@ public class UberBrain {
                     player.world=currentLevel;
                 }
             }
+            generateEnemy();
             discover();
             showBackground(gc);
             calculateDistance();
@@ -136,6 +139,47 @@ public class UberBrain {
                     }
                 }
 
+            }
+        }
+    }
+
+    public static void generateEnemy(){
+        Random rand = new Random();
+        try {
+            //if not enough enemies
+            if(currentLevel.mobs.size()<currentLevel.minEnemies+1){
+                int eId=rand.nextInt(currentLevel.mobTypes.size());
+                placeEnemy(currentLevel.mobTypes.get(eId).getConstructor(Level.class).newInstance(currentLevel));
+            }
+            else if(currentLevel.mobs.size()<=currentLevel.maxEnemies){
+                if(rand.nextInt(100)<30/currentLevel.mobs.size()){
+                    int eId=rand.nextInt(currentLevel.mobTypes.size());
+                    placeEnemy(currentLevel.mobTypes.get(eId).getConstructor(Level.class).newInstance(currentLevel));
+                }
+            }
+        }catch (Exception e){
+            System.out.println("No such mob");
+        }
+    }
+
+    public static void placeEnemy(Mob mob){
+        Random rand = new Random();
+        while(true){
+            int x=rand.nextInt(levelSize*roomSize);
+            int y=rand.nextInt(levelSize*roomSize);
+            if(currentLevel.field[y][x].getType()!= Field.TypeOfField.wall){
+                boolean placeable=true;
+                for(Mob fieldMob: currentLevel.mobs){
+                    if(fieldMob.y==y && fieldMob.x==x){
+                        placeable=false;
+                        break;
+                    }
+                }
+                if(placeable){
+                    currentLevel.addMob(mob, y, x);
+                    System.out.println("Generated "+mob.getClass().getSimpleName() + " at x="+ x+ ", y="+y);
+                    return;
+                }
             }
         }
     }
