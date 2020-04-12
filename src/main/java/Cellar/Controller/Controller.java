@@ -15,7 +15,7 @@ import static Cellar.Model.UberBrain.*;
 
 
 public class Controller {
-
+    public static ActionControl action;
     public static void start(Stage primaryStage){
         try{
 
@@ -23,7 +23,7 @@ public class Controller {
             Canvas c = new Canvas((width+6) * cornerSize, height * cornerSize);
             gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
-
+            action=new ActionControl();
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -51,24 +51,8 @@ public class Controller {
 
             prepareLevels();
 
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.W) {
-                    direction= Dir.up;
-                }
-                if (key.getCode() == KeyCode.A) {
-                    direction= Dir.left;
-                }
-                if (key.getCode() == KeyCode.S) {
-                    direction= Dir.down;
-                }
-                if (key.getCode() == KeyCode.D) {
-                    direction= Dir.right;
-                }
-            });
-            scene.addEventFilter(KeyEvent.KEY_RELEASED, key->
-            {
-                direction = Dir.none;
-            });
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, action::keyPressed);
+            scene.addEventFilter(KeyEvent.KEY_RELEASED, action::keyReleased);
         }catch (Exception e){
             e.printStackTrace();
         }
