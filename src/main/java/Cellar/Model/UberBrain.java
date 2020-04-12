@@ -21,7 +21,7 @@ public class UberBrain {
             case none:
                 showBackground(gc);
                 currentLevel.mobs.stream().forEach(mob ->{
-                    showMob(mob,gc);
+                    showMob(mob);
                 });
                 turn=false;
                 break;
@@ -61,11 +61,11 @@ public class UberBrain {
             discover();
             showBackground(gc);
             calculateDistance();
-            showMob(player, gc);
+            showMob(player);
             currentLevel.mobs.stream().forEach(mob -> {
                 if(mob instanceof Player) return;
                 mob.moveMob();
-                showMob(mob,gc);
+                showMob(mob);
             });
         }
         showRightInterface();

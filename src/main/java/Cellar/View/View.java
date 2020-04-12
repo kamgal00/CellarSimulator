@@ -56,7 +56,7 @@ public class View {
         }
     }
 
-    public static void showMob(Mob mob, GraphicsContext gc){
+    public static void showMob(Mob mob){
         if(mob.getClass().isAssignableFrom(Player.class)){
             gc.drawImage(playerTexture, (player.x-mob.x+width/2)*cornerSize, (player.y-mob.y+height/2)*cornerSize, cornerSize, cornerSize);
         }
