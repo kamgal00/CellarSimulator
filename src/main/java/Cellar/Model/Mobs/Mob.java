@@ -4,8 +4,7 @@ import Cellar.Model.Field;
 import Cellar.Model.Level;
 import Cellar.Model.Model;
 import javafx.scene.image.Image;
-
-import static Cellar.Model.Model.direction;
+import java.util.Random;
 
 public abstract class Mob {
     public int hp;
@@ -31,6 +30,15 @@ public abstract class Mob {
     public abstract void moveMob();
     public void attack(Mob enemy)
     {
+        Random rand = new Random();
+        if(this.attack <= enemy.defense) enemy.hp -= rand.nextInt(2);
+        else
+        {
+            int dmg = this.attack - enemy.defense;
+            int dmg_min = 8 * dmg / 10;
+            int dmg_max = (125 * dmg + 99) / 100;
+            enemy.hp -= rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min;
+        }
         System.out.println(this.getClass().getSimpleName()+" attacked "+enemy.getClass().getSimpleName()+"!");
         currentAction=actionType.attack;
     }

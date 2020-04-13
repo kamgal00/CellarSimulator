@@ -5,6 +5,7 @@ import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static Cellar.View.RightInterface.showRightInterface;
@@ -28,29 +29,28 @@ public class UberBrain {
                 turn=false;
                 break;
         }
-        if(turn)
-        {
-            boolean changedLevel=false;
+        if(turn) {
+            boolean changedLevel = false;
             //nextLevel
-            if(currentLevelIndex<maxLevel-1){
-                if(player.y==currentLevel.exitY && player.x==currentLevel.exitX){
+            if (currentLevelIndex < maxLevel - 1) {
+                if (player.y == currentLevel.exitY && player.x == currentLevel.exitX) {
                     currentLevelIndex++;
                     currentLevel.mobs.remove(player);
-                    currentLevel=levels.get(currentLevelIndex);
+                    currentLevel = levels.get(currentLevelIndex);
                     currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
-                    player.world=currentLevel;
-                    changedLevel=true;
+                    player.world = currentLevel;
+                    changedLevel = true;
                 }
             }
 
             //prevLevel
-            if(currentLevelIndex>0){
-                if(player.y==currentLevel.entranceY && player.x==currentLevel.entranceX && !changedLevel){
+            if (currentLevelIndex > 0) {
+                if (player.y == currentLevel.entranceY && player.x == currentLevel.entranceX && !changedLevel) {
                     currentLevelIndex--;
                     currentLevel.mobs.remove(player);
-                    currentLevel=levels.get(currentLevelIndex);
+                    currentLevel = levels.get(currentLevelIndex);
                     currentLevel.addMob(player, currentLevel.exitY, currentLevel.exitX);
-                    player.world=currentLevel;
+                    player.world = currentLevel;
                 }
             }
             generateEnemy(); //todo: zrobić aby moby nie pojawiały się na naszych oczach
@@ -58,11 +58,18 @@ public class UberBrain {
             showBackground(gc);
             calculateDistance();
             showMob(player);
+            ArrayList<Mob> dead = new ArrayList<Mob>();
+            for(int i = 0; i < currentLevel.mobs.size(); i++)
+            {
+                if(currentLevel.mobs.get(i).hp <= 0) dead.add(currentLevel.mobs.get(i));
+            }
+            currentLevel.mobs.removeAll(dead);
             currentLevel.mobs.stream().forEach(mob -> {
-                if(mob instanceof Player) return;
+                if (mob instanceof Player) return;
                 mob.moveMob();
                 showMob(mob);
             });
+            if(player.hp <= 0) System.out.println("GAME OVER");
         }
         showRightInterface();
     }
