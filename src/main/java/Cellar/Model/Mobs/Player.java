@@ -48,11 +48,73 @@ public class Player extends Mob {
         if(mouse!=null)
         {
             System.out.println("Wcisnięto pole "+mouse.getValue()+" "+mouse.getKey());
-            auto.start();
-            if(auto.isActive())
+            if(mouse.getKey()>=6&&mouse.getKey()<=8&&mouse.getValue()>=6&&mouse.getValue()<=8)
             {
-                auto.step();
-                if(auto.currentState!= MoveAutomation.Status.interrupted) return;
+                Dir direct=null;
+                switch (mouse.getKey())
+                {
+                    case 6:
+                        switch (mouse.getValue())
+                        {
+                            case 6:
+                                direct=Dir.leftUp;
+                                break;
+                            case 7:
+                                direct=Dir.up;
+                                break;
+                            case 8:
+                                direct=Dir.rightUp;
+                                break;
+                        }
+                        break;
+                    case 7:
+                        switch (mouse.getValue())
+                        {
+                            case 6:
+                                direct=Dir.left;
+                                break;
+                            case 7:
+                                currentAction=actionType.wait;
+                                return;
+                            case 8:
+                                direct=Dir.right;
+                                break;
+                        }
+                        break;
+                    case 8:
+                        switch (mouse.getValue())
+                        {
+                            case 6:
+                                direct=Dir.leftDown;
+                                break;
+                            case 7:
+                                direct=Dir.down;
+                                break;
+                            case 8:
+                                direct=Dir.rightDown;
+                                break;
+                        }
+                        break;
+                }
+                Mob en = move(direct);
+                if(en!=this)
+                {
+                    if(en==null) return;
+                    if(en instanceof Enemy)
+                    {
+                        attack(en);
+                    }
+                }
+                return;
+            }
+            else
+            {
+                auto.start();
+                if(auto.isActive())
+                {
+                    auto.step();
+                    if(auto.currentState!= MoveAutomation.Status.interrupted) return;
+                }
             }
         }
         Mob en = move(direction);
