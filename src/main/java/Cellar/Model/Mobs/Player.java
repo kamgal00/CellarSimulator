@@ -19,8 +19,8 @@ public class Player extends Mob {
         hp=100;
         attack=15;
         defense=5;
-        rightIm=new Image("file:resources/manright.png");
-        leftIm=new Image("file:resources/manleft.png");
+        rightIm=new Image("file:resources/manright.gif");
+        leftIm=new Image("file:resources/manleft.gif");
     }
     @Override
     public void moveMob() {
