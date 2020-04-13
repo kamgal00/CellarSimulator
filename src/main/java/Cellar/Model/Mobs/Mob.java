@@ -4,6 +4,8 @@ import Cellar.Model.Field;
 import Cellar.Model.Level;
 import Cellar.Model.Model;
 import javafx.scene.image.Image;
+
+import javax.swing.*;
 import java.util.Random;
 
 public abstract class Mob {
@@ -11,6 +13,7 @@ public abstract class Mob {
     public int maxHp;
     public int attack;
     public int defense;
+    public int blockChance;
     public int x;
     public int y;
     public Level world;
@@ -31,16 +34,24 @@ public abstract class Mob {
     public void attack(Mob enemy)
     {
         Random rand = new Random();
-        if(this.attack <= enemy.defense) enemy.hp -= rand.nextInt(2);
+        int dmg_min = 8 * this.attack / 10;
+        int dmg_max = (125 * this.attack + 99) / 100;
+        int dmg = (rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min) - enemy.defense;
+        if(rand.nextInt(101) <= enemy.blockChance) System.out.println(this.getClass().getSimpleName()+"'s attack blocked by a "+enemy.getClass().getSimpleName()+"!");
         else
         {
-            int dmg = this.attack - enemy.defense;
-            int dmg_min = 8 * dmg / 10;
-            int dmg_max = (125 * dmg + 99) / 100;
-            enemy.hp -= rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min;
+            if(dmg <= 0)
+            {
+                enemy.hp -= 1;
+                System.out.println(this.getClass().getSimpleName()+" dealt 1 damage to a "+enemy.getClass().getSimpleName()+"!");
+            }
+            else
+            {
+                enemy.hp -= dmg;
+                System.out.println(this.getClass().getSimpleName()+" dealt "+dmg+" damage to a "+enemy.getClass().getSimpleName()+"!");
+            }
         }
         if(enemy.hp < 0) enemy.hp = 0;
-        System.out.println(this.getClass().getSimpleName()+" attacked "+enemy.getClass().getSimpleName()+"!");
         currentAction=actionType.attack;
     }
     public boolean isVisible()

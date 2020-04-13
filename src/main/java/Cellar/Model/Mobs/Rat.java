@@ -14,6 +14,7 @@ public class Rat extends WalkingEnemy{
         hp=50;
         attack=7;
         defense=4;
+        blockChance=10;
         rightIm=new Image("file:resources/mobs/ratRight.gif");
         leftIm=new Image("file:resources/mobs/ratLeft.gif");
     }
