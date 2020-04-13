@@ -2,6 +2,7 @@ package Cellar.Model;
 
 import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Rat;
+import Cellar.Model.Mobs.Witch;
 
 import static Cellar.Model.Model.*;
 import static Cellar.Model.UberBrain.discover;
@@ -25,6 +26,7 @@ public class Preparations {
         //all levels
         for(int i=0; i<maxLevel; i++){
             levels.get(i).mobTypes.add(Rat.class);
+            levels.get(i).mobTypes.add(Witch.class);
         }
     }
 }
