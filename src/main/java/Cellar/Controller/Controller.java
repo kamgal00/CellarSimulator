@@ -1,31 +1,30 @@
 package Cellar.Controller;
 
-import Cellar.Model.LevelGenerator;
-import Cellar.Model.RoomGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static Cellar.Controller.Move.move;
 import static Cellar.Model.Model.*;
-import static Cellar.View.View.show;
+import static Cellar.Model.Preparations.prepareLevels;
+import static Cellar.Model.UberBrain.*;
 
 
 public class Controller {
-
+    public static ActionControl action;
     public static void start(Stage primaryStage){
         try{
 
             VBox root = new VBox();
-            Canvas c = new Canvas(width * cornerSize, height * cornerSize);
-            GraphicsContext gc = c.getGraphicsContext2D();
+            Canvas c = new Canvas((width+6) * cornerSize, height * cornerSize);
+            gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
-
+            action=new ActionControl();
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -44,32 +43,18 @@ public class Controller {
 
             }.start();
 
-            Scene scene = new Scene(root, width * cornerSize, height * cornerSize);
+            Scene scene = new Scene(root, (width+6) * cornerSize, height * cornerSize);
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
+            primaryStage.setResizable(false);
 
-            RoomGenerator.loadRoomGenerator();
-            levelGenerator=new LevelGenerator();
-            levels.add(levelGenerator.levelGenerate());
-            currentLevel=levels.get(currentLevelIndex);
+            prepareLevels();
 
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.W) {
-                    direction= Dir.up;
-                }
-                if (key.getCode() == KeyCode.A) {
-                    direction= Dir.left;
-                }
-                if (key.getCode() == KeyCode.S) {
-                    direction= Dir.down;
-                }
-                if (key.getCode() == KeyCode.D) {
-                    direction= Dir.right;
-                }
-            });
-
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, action::keyPressed);
+            scene.addEventFilter(KeyEvent.KEY_RELEASED, action::keyReleased);
+            scene.addEventFilter(MouseEvent.MOUSE_PRESSED,action::mouseClick);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -77,7 +62,6 @@ public class Controller {
 
     }
     public static void tick(GraphicsContext gc){
-        show(gc); //todo: wyświetlanie poziomu (w klasie View)
-        move(); //
+        brainTick(gc);
     }
 }

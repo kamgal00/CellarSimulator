@@ -41,9 +41,14 @@ public class LevelGenerator {
 
         //generating entrance and exit
         int entranceId=rand.nextInt(numberOfRooms);
+        while(!roomList.get(entranceId).exitable){
+            entranceId=rand.nextInt(numberOfRooms);
+        }
         int exitId=rand.nextInt(numberOfRooms);
         Room curr=roomList.get(entranceId);
-        while(exitId==entranceId){exitId=rand.nextInt(numberOfRooms);}
+        while(!roomList.get(exitId).exitable || exitId==entranceId){
+            exitId=rand.nextInt(numberOfRooms);
+        }
 
         //finding coordinates
         for(int i=0; i<levelSize; i++){ //by row
@@ -133,6 +138,7 @@ public class LevelGenerator {
         gen.playerX=gen.entranceX;
         gen.playerY=gen.entranceY;
 
+        /*
         //printing in console
         for(int i=0; i<roomSize*levelSize; i++){
             for(int j=0; j<roomSize*levelSize; j++){
@@ -143,7 +149,7 @@ public class LevelGenerator {
                 else{System.out.print("X");}
             }
             System.out.println(" ");
-        }
+        }*/
         return gen;
     }
 

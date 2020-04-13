@@ -1,17 +1,27 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.Mob;
+import Cellar.Model.Mobs.Player;
+
+import java.util.ArrayList;
+
+import static Cellar.Model.Model.levelSize;
 import static Cellar.Model.Model.roomSize;
 
 public class Level {
-    public Field[][] field; //todo: wyswietlanie pól
+    public Field[][] field;
     public int width;
     public int height;
-    public int playerX; //todo: w zależności od pola gracza
+    public int playerX;
     public int playerY;
     public int entranceX;
     public int entranceY;
     public int exitX;
     public int exitY;
+    public ArrayList<Mob> mobs=new ArrayList<>();
+    public ArrayList<Class<? extends Mob>> mobTypes=new ArrayList<>();
+    public int minEnemies=3;
+    public int maxEnemies=10;
 
 
     //width -- number of rooms in row
@@ -39,6 +49,21 @@ public class Level {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public void addMob(Mob mob, int y, int x){
+        mob.y=y;
+        mob.x=x;
+
+        mobs.add(mob);
+    }
+
+    public void cleanDistance(){
+        for(int i=0; i<levelSize*roomSize; i++){
+            for(int j=0; j<levelSize*roomSize; j++){
+                field[i][j].distance=-1;
             }
         }
     }

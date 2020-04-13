@@ -5,7 +5,7 @@ import Cellar.Model.Room;
 import static Cellar.Model.Model.*;
 
 public class Move {
-    public static void move(){/* //todo: zmiana pozycji gracza
+    public static void move(){/*
         switch (direction){
             case up:
                 for(Room room: level.rooms){
