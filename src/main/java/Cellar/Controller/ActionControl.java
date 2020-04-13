@@ -4,13 +4,21 @@ import Cellar.Model.Model;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import Cellar.Model.Model.*;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Pair;
+
 public class ActionControl {
     Object lock;
     volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC;
     volatile KeyCode lastPressed;
+    Object mouseLock;
+    boolean isPressed;
+    int x,y;
     public ActionControl()
     {
         lock=new Object();
+        mouseLock=new Object();
+        isPressed=false;
         isW=false;
         isA=false;
         isD=false;
@@ -71,5 +79,26 @@ public class ActionControl {
         else if(lastPressed==KeyCode.E) Model.direction=Dir.rightUp;
         else if(lastPressed==KeyCode.Z) Model.direction=Dir.leftDown;
         else if(lastPressed==KeyCode.C) Model.direction=Dir.rightDown;
+    }
+    public void mouseClick(MouseEvent click)
+    {
+        synchronized (mouseLock)
+        {
+            int a= (int) Math.floor(click.getSceneX());
+            int b= (int) Math.floor(click.getSceneY());
+            if(a>=Model.width*Model.cornerSize||b>=Model.height*Model.cornerSize) return;
+            isPressed=true;
+            x=a/Model.cornerSize;
+            y=b/Model.cornerSize;
+        }
+    }
+    public Pair<Integer,Integer> getMouse()
+    {
+        synchronized (mouseLock)
+        {
+            if(!isPressed) return null;
+            isPressed=false;
+            return new Pair<>(y,x);
+        }
     }
 }

@@ -16,7 +16,7 @@ public abstract class Mob {
     public int y;
     public Level world;
     public Mob attackedMob;
-    public enum actionType{none, up,down,left,right,leftUp,leftDown,rightUp,rightDown,pickup,attack}
+    public enum actionType{none, up,down,left,right,leftUp,leftDown,rightUp,rightDown,pickup,attack,wait}
     public actionType currentAction;
     public Image leftIm,rightIm,currIm;
     public Mob(Level world)
@@ -27,23 +27,11 @@ public abstract class Mob {
         attackedMob=null;
         currIm=rightIm;
     }
-    public boolean isHere(int y,int x)
-    {
-        return (this.x==x&&this.y==y);
-    }
-    public boolean isClose(int y,int x)
-    {
-        if(x==this.x &&this.y-y==1) return true;
-        if(x==this.x &&this.y-y==-1) return true;
-        if(y==this.y &&this.x-x==1) return true;
-        if(y==this.y &&this.x-x==-1) return true;
-        return false;
-    }
     public abstract void setParams();
     public abstract void moveMob();
     public void attack(Mob enemy)
     {
-        System.out.println(this.getClass().getName()+" attacked "+enemy.getClass().getName()+"!");
+        System.out.println(this.getClass().getSimpleName()+" attacked "+enemy.getClass().getSimpleName()+"!");
         currentAction=actionType.attack;
     }
     public boolean isVisible()

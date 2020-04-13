@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -53,6 +54,7 @@ public class Controller {
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, action::keyPressed);
             scene.addEventFilter(KeyEvent.KEY_RELEASED, action::keyReleased);
+            scene.addEventFilter(MouseEvent.MOUSE_PRESSED,action::mouseClick);
         }catch (Exception e){
             e.printStackTrace();
         }
