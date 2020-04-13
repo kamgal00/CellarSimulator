@@ -44,5 +44,31 @@ public class RightInterface {
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/2));
         gc.fillText(currentLevelIndex+1+"", width*cornerSize+3*cornerSize/2-5, 10+3*roomSize*levelSize+3*cornerSize/2-5);
+
+        //show HP bar
+        gc.setFill(Color.rgb(90, 0,0));
+        gc.fillRect(width*cornerSize+cornerSize/2-2, 45+3*roomSize*levelSize+cornerSize-2, cornerSize*5+4, cornerSize/4+4);
+        gc.setFill(Color.DARKRED);
+        gc.fillRect(width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+cornerSize, cornerSize*5, cornerSize/4);
+
+        gc.setFill(Color.DARKGREEN);
+        gc.fillRect(width*cornerSize+cornerSize/2-2, 45+3*roomSize*levelSize+cornerSize-2, cornerSize*5*player.hp/player.maxHp+4, cornerSize/4+4);
+        gc.setFill(Color.GREEN);
+        gc.fillRect(width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+cornerSize, cornerSize*5*player.hp/player.maxHp, cornerSize/4);
+
+        //show stats
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font("", cornerSize/3));
+        gc.fillText("HP "+player.hp+"/"+player.maxHp, width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+4*cornerSize/2-5);
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font("", cornerSize/3));
+        gc.fillText("Lvl trzebadodac", width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+4*cornerSize/2-5);
+
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font("", cornerSize/3));
+        gc.fillText("ATK "+player.attack, width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font("", cornerSize/3));
+        gc.fillText("DEF "+player.defense, width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
     }
 }

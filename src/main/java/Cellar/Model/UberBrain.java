@@ -152,7 +152,7 @@ public class UberBrain {
                 placeEnemy(currentLevel.mobTypes.get(eId).getConstructor(Level.class).newInstance(currentLevel));
             }
             else if(currentLevel.mobs.size()<=currentLevel.maxEnemies){
-                if(rand.nextInt(100)<30/currentLevel.mobs.size()){
+                if(rand.nextInt(1000)<100/currentLevel.mobs.size()){
                     int eId=rand.nextInt(currentLevel.mobTypes.size());
                     placeEnemy(currentLevel.mobTypes.get(eId).getConstructor(Level.class).newInstance(currentLevel));
                 }
@@ -167,18 +167,20 @@ public class UberBrain {
         while(true){
             int x=rand.nextInt(levelSize*roomSize);
             int y=rand.nextInt(levelSize*roomSize);
-            if(currentLevel.field[y][x].getType()!= Field.TypeOfField.wall){
-                boolean placeable=true;
-                for(Mob fieldMob: currentLevel.mobs){
-                    if(fieldMob.y==y && fieldMob.x==x){
-                        placeable=false;
-                        break;
+            if( (x>player.x+width/2 || x<player.x-width/2) && (y>player.y+height/2 || y<player.y-height/2)){
+                if(currentLevel.field[y][x].getType()!= Field.TypeOfField.wall){
+                    boolean placeable=true;
+                    for(Mob fieldMob: currentLevel.mobs){
+                        if(fieldMob.y==y && fieldMob.x==x){
+                            placeable=false;
+                            break;
+                        }
                     }
-                }
-                if(placeable){
-                    currentLevel.addMob(mob, y, x);
-                    System.out.println("Generated "+mob.getClass().getSimpleName() + " at x="+ x+ ", y="+y);
-                    return;
+                    if(placeable){
+                        currentLevel.addMob(mob, y, x);
+                        System.out.println("Generated "+mob.getClass().getSimpleName() + " at x="+ x+ ", y="+y);
+                        return;
+                    }
                 }
             }
         }
