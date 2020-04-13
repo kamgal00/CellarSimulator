@@ -61,9 +61,14 @@ public class UberBrain {
             ArrayList<Mob> dead = new ArrayList<Mob>();
             for(int i = 0; i < currentLevel.mobs.size(); i++)
             {
-                if(currentLevel.mobs.get(i).hp <= 0) dead.add(currentLevel.mobs.get(i));
+                if(currentLevel.mobs.get(i).hp <= 0)
+                {
+                    dead.add(currentLevel.mobs.get(i));
+                    currentLevel.field[dead.get(dead.size() - 1).y][dead.get(dead.size() - 1).x].mob=null;
+                }
             }
             currentLevel.mobs.removeAll(dead);
+
             currentLevel.mobs.stream().forEach(mob -> {
                 if (mob instanceof Player) return;
                 mob.moveMob();
