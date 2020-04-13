@@ -34,7 +34,7 @@ public class Player extends Mob {
         hp=100;
         attack=15;
         defense=5;
-        missChance=15;
+        blockChance=15;
         rightIm=new Image("file:resources/manright.gif");
         leftIm=new Image("file:resources/manleft.gif");
     }
