@@ -11,6 +11,7 @@ public abstract class Mob {
     public int maxHp;
     public int attack;
     public int defense;
+    public int missChance;
     public int x;
     public int y;
     public Level world;
