@@ -39,6 +39,7 @@ public abstract class Mob {
             int dmg_max = (125 * dmg + 99) / 100;
             enemy.hp -= rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min;
         }
+        if(enemy.hp < 0) enemy.hp = 0;
         System.out.println(this.getClass().getSimpleName()+" attacked "+enemy.getClass().getSimpleName()+"!");
         currentAction=actionType.attack;
     }
