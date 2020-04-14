@@ -7,6 +7,8 @@ import Cellar.Model.Model.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 
+import static Cellar.Model.Model.*;
+
 public class ActionControl {
     Object lock;
     volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight;
@@ -106,10 +108,24 @@ public class ActionControl {
         {
             int a= (int) Math.floor(click.getSceneX());
             int b= (int) Math.floor(click.getSceneY());
-            if(a>=Model.width*Model.cornerSize||b>=Model.height*Model.cornerSize) return;
-            isPressed=true;
-            x=a/Model.cornerSize;
-            y=b/Model.cornerSize;
+            if(a<Model.width*Model.cornerSize&&b<Model.height*Model.cornerSize)
+            {
+                isPressed=true;
+                x=a/Model.cornerSize+Model.player.x-7;
+                y=b/Model.cornerSize+Model.player.y-7;
+            }
+            else if(a>=width*cornerSize+cornerSize/2&&a<width*cornerSize+cornerSize/2+3*levelSize*roomSize
+            && b>=30&&b<30+3*levelSize*roomSize)
+            {
+                isPressed=true;
+                x=(a-(width*cornerSize+cornerSize/2))/3;
+                y=(b-30)/3;
+
+            }
+            else
+            {
+                return;
+            }
         }
     }
     public Pair<Integer,Integer> getMouse()

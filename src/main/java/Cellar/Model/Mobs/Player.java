@@ -19,13 +19,13 @@ public class Player extends Mob {
         auto=new MoveAutomation(this,true) {
             @Override
             public void setActions() {
-                addAction(new GoTo() {
+                addAction(new GoTo(true) {
                     @Override
                     public Pair<Integer, Integer> getTarget() {
-                        Pair<Integer,Integer> target=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
+                        //Pair<Integer,Integer> target=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
                         //System.out.println("próbuje znaleźć cel");
-                        if(world.field[target.getKey()][target.getValue()].distance==-1) return null;
-                        return target;
+                        //if(world.field[target.getKey()][target.getValue()].distance==-1) return null;
+                        return mouse;
                     }
                 });
             }
@@ -60,49 +60,49 @@ public class Player extends Mob {
         if(mouse!=null)
         {
             //System.out.println("Wcisnięto pole "+mouse.getValue()+" "+mouse.getKey());
-            if(mouse.getKey()>=6&&mouse.getKey()<=8&&mouse.getValue()>=6&&mouse.getValue()<=8)
+            if(mouse.getKey()-y>=-1&&mouse.getKey()-y<=1&&mouse.getValue()-x>=-1&&mouse.getValue()-x<=1)
             {
                 Dir direct=null;
-                switch (mouse.getKey())
+                switch (mouse.getKey()-y)
                 {
-                    case 6:
-                        switch (mouse.getValue())
+                    case -1:
+                        switch (mouse.getValue()-x)
                         {
-                            case 6:
+                            case -1:
                                 direct=Dir.leftUp;
                                 break;
-                            case 7:
+                            case 0:
                                 direct=Dir.up;
                                 break;
-                            case 8:
+                            case 1:
                                 direct=Dir.rightUp;
                                 break;
                         }
                         break;
-                    case 7:
-                        switch (mouse.getValue())
+                    case 0:
+                        switch (mouse.getValue()-x)
                         {
-                            case 6:
+                            case -1:
                                 direct=Dir.left;
                                 break;
-                            case 7:
+                            case 0:
                                 currentAction=actionType.wait;
                                 return;
-                            case 8:
+                            case 1:
                                 direct=Dir.right;
                                 break;
                         }
                         break;
-                    case 8:
-                        switch (mouse.getValue())
+                    case 1:
+                        switch (mouse.getValue()-x)
                         {
-                            case 6:
+                            case -1:
                                 direct=Dir.leftDown;
                                 break;
-                            case 7:
+                            case 0:
                                 direct=Dir.down;
                                 break;
-                            case 8:
+                            case 1:
                                 direct=Dir.rightDown;
                                 break;
                         }

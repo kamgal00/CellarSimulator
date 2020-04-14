@@ -33,9 +33,11 @@ public class PathFinder {
             coordinates=x;
         }
     }
-    public static ArrayList<Pair<Integer,Integer>> findPath(Level world,Pair<Integer,Integer> begin, Pair<Integer,Integer> end)
+    public static ArrayList<Pair<Integer,Integer>> findPath(boolean discoveredMatters,Level world,Pair<Integer,Integer> begin, Pair<Integer,Integer> end)
     {
         if(begin==null||end==null||world==null) return null;
+        if(begin.getKey()<0||begin.getKey()>=Model.levelSize*Model.roomSize||begin.getValue()<0||begin.getValue()>=Model.levelSize*Model.roomSize) return null;
+        if(end.getKey()<0||end.getKey()>=Model.levelSize*Model.roomSize||end.getValue()<0||end.getValue()>=Model.levelSize*Model.roomSize) return null;
         Set<Pair<Integer,Integer>> visited = new HashSet<>();
         visited.add(end);
         ArrayList<Node> q = new ArrayList<>();
@@ -54,9 +56,12 @@ public class PathFinder {
                 int i=it.get(k).getKey();
                 int j=it.get(k).getValue();
                 temp = new Node(a,new Pair<Integer,Integer>(a.coordinates.getKey()+i,a.coordinates.getValue()+j));
+                if(temp.coordinates.getKey()<0||temp.coordinates.getKey()>=Model.levelSize*Model.roomSize) continue;
+                if(temp.coordinates.getValue()<0||temp.coordinates.getValue()>=Model.levelSize*Model.roomSize) continue;
                 if(visited.contains(temp.coordinates)) continue ;
                 visited.add(temp.coordinates);
                 if(world.field[temp.coordinates.getKey()][temp.coordinates.getValue()].getType()== Field.TypeOfField.wall) continue ;
+                if(discoveredMatters&&!world.field[temp.coordinates.getKey()][temp.coordinates.getValue()].discovered) continue ;
                 q.add(temp);
             }
         }

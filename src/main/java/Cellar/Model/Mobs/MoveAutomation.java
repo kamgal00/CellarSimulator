@@ -99,7 +99,13 @@ public abstract class MoveAutomation {
     public abstract class GoTo extends Action
     {
         int c;
+        boolean discoveredMatters;
         ArrayList<Pair<Integer,Integer>> path;
+        public GoTo(boolean discoveredMatters)
+        {
+            super();
+            this.discoveredMatters=discoveredMatters;
+        }
         public void step()
         {
             if(state!=Status.started)
@@ -180,7 +186,7 @@ public abstract class MoveAutomation {
                 state=Status.interrupted;
                 return;
             }
-            path= PathFinder.findPath(child.world,new Pair<>(child.y,child.x),target);
+            path= PathFinder.findPath(discoveredMatters,child.world,new Pair<>(child.y,child.x),target);
             if(path==null||path.size()==0)
             {
                 state=Status.interrupted;
