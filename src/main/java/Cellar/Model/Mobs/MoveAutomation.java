@@ -1,6 +1,9 @@
 package Cellar.Model.Mobs;
 
+import Cellar.Model.Field;
 import Cellar.Model.Model;
+import Cellar.Model.PathFinder;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -95,7 +98,98 @@ public abstract class MoveAutomation {
     }
     public abstract class GoTo extends Action
     {
-
+        int c;
+        ArrayList<Pair<Integer,Integer>> path;
+        public void step()
+        {
+            if(state!=Status.started)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            if(child.world.field[path.get(c).getKey()][path.get(c).getValue()].mob!=null)
+            {
+                if(obstacleCase)
+                {
+                    state=Status.interrupted;
+                    return;
+                }
+                child.currentAction= Mob.actionType.wait;
+                return;
+            }
+            if(child.world.field[path.get(c).getKey()][path.get(c).getValue()].getType()== Field.TypeOfField.wall)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            boolean ok=false;
+            switch(path.get(c).getKey()-child.y)
+            {
+                case 1:
+                    switch(path.get(c).getValue()-child.x)
+                    {
+                        case 1:
+                            child.move(Model.Dir.rightDown); ok=true;
+                            break;
+                        case 0:
+                            child.move(Model.Dir.down); ok=true;
+                            break;
+                        case -1:
+                            child.move(Model.Dir.leftDown); ok=true;
+                            break;
+                    }
+                    break;
+                case 0:
+                    switch(path.get(c).getValue()-child.x)
+                    {
+                        case 1:
+                            child.move(Model.Dir.right); ok=true;
+                            break;
+                        case 0:
+                            child.move(Model.Dir.none); ok=true;
+                            break;
+                        case -1:
+                            child.move(Model.Dir.left); ok=true;
+                            break;
+                    }
+                    break;
+                case -1:
+                    switch(path.get(c).getValue()-child.x)
+                    {
+                        case 1:
+                            child.move(Model.Dir.rightUp); ok=true;
+                            break;
+                        case 0:
+                            child.move(Model.Dir.up); ok=true;
+                            break;
+                        case -1:
+                            child.move(Model.Dir.leftUp); ok=true;
+                            break;
+                    }
+            }
+            if(!ok) child.move(Model.Dir.none);
+            c++;
+            if(c==path.size()) state=Status.stopped;
+        }
+        public void init()
+        {
+            super.init();
+            Pair<Integer,Integer> target=getTarget();
+            if(target==null)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            path= PathFinder.findPath(child.world,new Pair<>(child.y,child.x),target);
+            if(path==null||path.size()==0)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            c=0;
+            state=Status.started;
+        }
+        public abstract Pair<Integer,Integer> getTarget();
     }
     public class Sleep extends Action{
         int counter,sleepTime;
@@ -105,6 +199,12 @@ public abstract class MoveAutomation {
         }
         @Override
         public void step() {
+            if(state==Status.stopped)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            if(state==Status.interrupted) return;
             counter--;
             child.currentAction= Mob.actionType.wait;
             if(counter==0) state=Status.stopped;

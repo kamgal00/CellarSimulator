@@ -1,29 +1,36 @@
 package Cellar.Model.Mobs;
 import Cellar.Controller.Controller;
-import Cellar.Model.Field;
 import Cellar.Model.Level;
-import Cellar.Model.Model;
 import Cellar.Model.Model.*;
+import Cellar.Model.PathFinder;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-
-import java.util.Optional;
 
 import static Cellar.Model.Model.*;
 
 public class Player extends Mob {
     MoveAutomation auto;
     Pair<Integer,Integer> mouse;
-    public Player(Level world)
+    public Player(Level w)
     {
-        super(world);
+        super(w);
         auto=new MoveAutomation(this,true) {
             @Override
             public void setActions() {
-                addAction(new Sleep(3));
+                addAction(new GoTo() {
+                    @Override
+                    public Pair<Integer, Integer> getTarget() {
+                        Pair<Integer,Integer> target=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
+                        //System.out.println("próbuje znaleźć cel");
+                        if(world.field[target.getKey()][target.getValue()].distance==-1) return null;
+                        return target;
+                    }
+                });
             }
             @Override
-            public boolean interruptCondition() {
+            public boolean interruptCondition()
+            {
+                if(direction!=Dir.none) return true;
                 return false;
             }
         };
@@ -48,7 +55,7 @@ public class Player extends Mob {
         mouse=Controller.action.getMouse();
         if(mouse!=null)
         {
-            System.out.println("Wcisnięto pole "+mouse.getValue()+" "+mouse.getKey());
+            //System.out.println("Wcisnięto pole "+mouse.getValue()+" "+mouse.getKey());
             if(mouse.getKey()>=6&&mouse.getKey()<=8&&mouse.getValue()>=6&&mouse.getValue()<=8)
             {
                 Dir direct=null;
@@ -116,6 +123,9 @@ public class Player extends Mob {
                     auto.step();
                     if(auto.currentState!= MoveAutomation.Status.interrupted) return;
                 }
+                /*Pair<Integer,Integer> xd=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
+                System.out.println(xd);
+                System.out.println(PathFinder.findPath(world,new Pair<>(y,x),xd));*/
             }
         }
         Mob en = move(direction);

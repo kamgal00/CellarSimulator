@@ -1,5 +1,6 @@
 package Cellar.Controller;
 
+import Cellar.Model.PathFinder;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -25,6 +26,7 @@ public class Controller {
             gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
             action=new ActionControl();
+            PathFinder.loadPathFinder();
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -35,7 +37,7 @@ public class Controller {
                         return;
                     }
 
-                    if (now - lastTick > 100000000) {
+                    if (now - lastTick > 60000000) {
                         lastTick = now;
                         tick(gc);
                     }
@@ -54,7 +56,7 @@ public class Controller {
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, action::keyPressed);
             scene.addEventFilter(KeyEvent.KEY_RELEASED, action::keyReleased);
-            scene.addEventFilter(MouseEvent.MOUSE_PRESSED,action::mouseClick);
+            scene.addEventFilter(MouseEvent.MOUSE_PRESSED, action::mouseClick);
         }catch (Exception e){
             e.printStackTrace();
         }
