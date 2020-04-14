@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.util.Random;
 
 public abstract class Mob {
+    public int expForKill;
     public int hp;
     public int maxHp;
     public int attack;

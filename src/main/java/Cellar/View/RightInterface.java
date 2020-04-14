@@ -62,7 +62,7 @@ public class RightInterface {
         gc.fillText("HP "+player.hp+"/"+player.maxHp, width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+4*cornerSize/2-5);
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/3));
-        gc.fillText("Lvl trzebadodac", width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+4*cornerSize/2-5);
+        gc.fillText("Lvl "+player.level + " exp: "+player.exp+"/"+player.level*player.level*10, width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+4*cornerSize/2-5);
 
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/3));

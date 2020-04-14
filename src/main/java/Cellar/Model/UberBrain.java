@@ -54,7 +54,7 @@ public class UberBrain {
                     player.world = currentLevel;
                 }
             }
-            generateEnemy(); //todo: zrobić aby moby nie pojawiały się na naszych oczach
+            generateEnemy();
             discover();
             showBackground(gc);
             calculateDistance();
@@ -64,6 +64,20 @@ public class UberBrain {
             {
                 if(currentLevel.mobs.get(i).hp <= 0)
                 {
+                    //gaining experience
+                    player.exp+=currentLevel.mobs.get(i).expForKill;
+                    while(player.exp>=player.level*player.level*10){
+                        player.exp-=player.level*player.level*10;
+                        player.level++;
+                        player.maxHp*=11;
+                        player.maxHp/=10;
+                        player.hp=player.maxHp;
+                        player.attack*=11;
+                        player.attack/=10;
+                        player.defense*=6;
+                        player.defense/=5;
+                    }
+
                     dead.add(currentLevel.mobs.get(i));
                     currentLevel.field[dead.get(dead.size() - 1).y][dead.get(dead.size() - 1).x].mob=null;
                 }

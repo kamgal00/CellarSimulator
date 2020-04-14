@@ -10,6 +10,7 @@ public class Rat extends WalkingEnemy{
     @Override
     public void setParams()
     {
+        expForKill=10;
         maxHp=50;
         hp=50;
         attack=7;

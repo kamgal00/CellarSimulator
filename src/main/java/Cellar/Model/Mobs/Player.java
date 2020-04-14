@@ -11,6 +11,8 @@ import static Cellar.Model.Model.*;
 public class Player extends Mob {
     MoveAutomation auto;
     Pair<Integer,Integer> mouse;
+    public int level;
+    public int exp;
     public Player(Level w)
     {
         super(w);
@@ -37,6 +39,8 @@ public class Player extends Mob {
     }
     @Override
     public void setParams() {
+        level=1;
+        exp=0;
         maxHp=100;
         hp=100;
         attack=15;

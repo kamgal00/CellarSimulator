@@ -8,6 +8,7 @@ public class Witch extends WalkingEnemy {
     @Override
     public void setParams()
     {
+        expForKill=20;
         maxHp=30;
         hp=30;
         attack=15;
