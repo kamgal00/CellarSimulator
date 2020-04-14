@@ -13,6 +13,32 @@ public class Player extends Mob {
     Pair<Integer,Integer> mouse;
     public int level;
     public int exp;
+    boolean isEnemyNearby;
+    boolean surprise;
+    void findEnemy()
+    {
+        for(int j=Math.max(y-7,0);j<Math.min(y+8,levelSize*roomSize);j++)
+        {
+            for(int i=Math.max(x-7,0);i<Math.min(x+8,levelSize*roomSize);i++)
+            {
+                if(world.field[j][i].mob instanceof Enemy)
+                {
+                    if(isEnemyNearby)
+                    {
+                        surprise=false;
+                        return;
+                    }
+                    isEnemyNearby=true;
+                    surprise=true;
+                    //System.out.println("Surprise!");
+                    return;
+                }
+            }
+        }
+        isEnemyNearby=false;
+        surprise=false;
+
+    }
     public Player(Level w)
     {
         super(w);
@@ -22,9 +48,6 @@ public class Player extends Mob {
                 addAction(new GoTo(true) {
                     @Override
                     public Pair<Integer, Integer> getTarget() {
-                        //Pair<Integer,Integer> target=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
-                        //System.out.println("próbuje znaleźć cel");
-                        //if(world.field[target.getKey()][target.getValue()].distance==-1) return null;
                         return mouse;
                     }
                 });
@@ -33,6 +56,8 @@ public class Player extends Mob {
             public boolean interruptCondition()
             {
                 if(direction!=Dir.none) return true;
+                if(Controller.action.newInput()) return true;
+                if(surprise) return true;
                 return false;
             }
         };
@@ -51,6 +76,7 @@ public class Player extends Mob {
     }
     @Override
     public void moveMob() {
+        findEnemy();
         if(auto.isActive())
         {
             auto.step();

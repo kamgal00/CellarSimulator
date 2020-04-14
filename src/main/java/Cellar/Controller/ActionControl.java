@@ -137,4 +137,11 @@ public class ActionControl {
             return new Pair<>(y,x);
         }
     }
+    public boolean newInput()
+    {
+        synchronized (mouseLock)
+        {
+            return isPressed;
+        }
+    }
 }
