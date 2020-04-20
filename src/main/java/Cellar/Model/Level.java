@@ -2,8 +2,10 @@ package Cellar.Model;
 
 import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Player;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static Cellar.Model.Model.levelSize;
 import static Cellar.Model.Model.roomSize;
@@ -66,5 +68,17 @@ public class Level {
                 field[i][j].distance=-1;
             }
         }
+    }
+
+    public Pair<Integer, Integer> randomField(){
+
+        Random rand = new Random();
+        int y=0, x=0;
+        while(field[y][x].getType()== Field.TypeOfField.wall){
+            y=rand.nextInt(roomSize*levelSize);
+            x=rand.nextInt(roomSize*levelSize);
+        }
+
+        return new Pair<>(y, x);
     }
 }
