@@ -1,5 +1,6 @@
 package Cellar.Model;
 
+import Cellar.Model.Mobs.BigSlime;
 import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Rat;
 import Cellar.Model.Mobs.Witch;
@@ -27,6 +28,7 @@ public class Preparations {
         for(int i=0; i<maxLevel; i++){
             levels.get(i).mobTypes.add(Rat.class);
             levels.get(i).mobTypes.add(Witch.class);
+            if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
         }
     }
 }
