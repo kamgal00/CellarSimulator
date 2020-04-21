@@ -31,6 +31,7 @@ public class Preparations {
             levels.get(i).mobTypes.add(Rat.class);
             levels.get(i).mobTypes.add(Witch.class);
             if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
+            else if(i>=2){levels.get(i).mobTypes.add(LittleSlime.class);}
         }
     }
 

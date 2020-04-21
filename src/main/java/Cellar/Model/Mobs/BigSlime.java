@@ -25,7 +25,7 @@ public class BigSlime extends WalkingEnemy {
     @Override
     void onDeath()
     {
-        BigSlime slime1=new BigSlime(currentLevel);
+        LittleSlime slime1=new LittleSlime(currentLevel);
 
         currentLevel.addMob(slime1, this.y, this.x);
 
@@ -39,7 +39,7 @@ public class BigSlime extends WalkingEnemy {
                 }
             }
             if(isPlace){
-                BigSlime slime2=new BigSlime(currentLevel);
+                LittleSlime slime2=new LittleSlime(currentLevel);
                 Random rand = new Random();
                 int xx=rand.nextInt(3);
                 int yy=rand.nextInt(3);
