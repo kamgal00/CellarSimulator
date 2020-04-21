@@ -60,6 +60,7 @@ public class Level {
         mob.x=x;
 
         mobs.add(mob);
+        field[mob.y][mob.x].mob=mob;
     }
 
     public void cleanDistance(){
