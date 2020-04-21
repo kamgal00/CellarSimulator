@@ -20,6 +20,6 @@ public class Model {
     public static ArrayList<Level> levels=new ArrayList<>();
     public static int currentLevelIndex=0;
     public static Level currentLevel;
-    public static Player player=new Player(null);
+    public static Player player;
     public static GraphicsContext gc;
 }

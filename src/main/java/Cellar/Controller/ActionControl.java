@@ -8,14 +8,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 
 import static Cellar.Model.Model.*;
+import static Cellar.Model.Preparations.*;
 
 public class ActionControl {
     Object lock;
-    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight,isSpace;
+    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight,isSpace, isRestart;
     volatile KeyCode lastPressed;
     Object mouseLock;
     boolean isPressed;
     int x,y;
+    long restartTime;
     public ActionControl()
     {
         lock=new Object();
@@ -31,6 +33,7 @@ public class ActionControl {
         isRight=false;
         isSpace=false;
         lastPressed=null;
+        isRestart=false;
     }
     public void keyPressed(KeyEvent key)
     {
@@ -49,6 +52,10 @@ public class ActionControl {
             if (key.getCode() == KeyCode.LEFT) isLeft=true;
             if (key.getCode() == KeyCode.RIGHT) isRight=true;
             if (key.getCode() == KeyCode.SPACE) isSpace=true;
+            if (key.getCode() == KeyCode.R) {
+                if(!isRestart){restartTime=System.currentTimeMillis();}
+                isRestart=true;
+            }
             lastPressed=key.getCode();
             updateDirection();
         }
@@ -70,6 +77,7 @@ public class ActionControl {
             if (key.getCode() == KeyCode.LEFT) isLeft=false;
             if (key.getCode() == KeyCode.RIGHT) isRight=false;
             if (key.getCode() == KeyCode.SPACE) isSpace=false;
+            if (key.getCode() == KeyCode.R) isRestart=false;
             if(lastPressed==key.getCode())
             {
                 if(isW) lastPressed=KeyCode.W;
@@ -85,6 +93,7 @@ public class ActionControl {
                 else if(isLeft) lastPressed=KeyCode.LEFT;
                 else if(isRight) lastPressed=KeyCode.RIGHT;
                 else if(isSpace) lastPressed=KeyCode.SPACE;
+                if (isRestart) lastPressed=KeyCode.R;
                 else lastPressed=null;
             }
             updateDirection();
@@ -106,6 +115,14 @@ public class ActionControl {
         else if(lastPressed==KeyCode.RIGHT) Model.direction=Dir.right;
         else if(lastPressed==KeyCode.DOWN) Model.direction=Dir.down;
         else if(lastPressed==KeyCode.SPACE ) Model.direction=Dir.wait;
+        else if(isRestart){
+            if(System.currentTimeMillis()-restartTime>=3000){
+                System.out.println("RESTART");
+                isRestart=false;
+                clearGame();
+                prepareLevels();
+            }
+        }
     }
     public void mouseClick(MouseEvent click)
     {

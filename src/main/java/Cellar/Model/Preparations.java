@@ -1,9 +1,8 @@
 package Cellar.Model;
 
-import Cellar.Model.Mobs.BigSlime;
-import Cellar.Model.Mobs.Mob;
-import Cellar.Model.Mobs.Rat;
-import Cellar.Model.Mobs.Witch;
+import Cellar.Model.Mobs.*;
+
+import java.util.ArrayList;
 
 import static Cellar.Model.Model.*;
 import static Cellar.Model.UberBrain.discover;
@@ -18,17 +17,25 @@ public class Preparations {
         }
 
         currentLevel=levels.get(0);
+        player=new Player(currentLevel);
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
-        //currentLevel.addMob(new Rat(currentLevel),currentLevel.exitY+1, currentLevel.exitX);
-        player.world=currentLevel;
         discover();
 
-        //adding mob types
-        //all levels
+        if(levels.get(0).mobTypes.isEmpty()){
+            assignMobs();
+        }
+    }
+
+    public static void assignMobs(){
         for(int i=0; i<maxLevel; i++){
             levels.get(i).mobTypes.add(Rat.class);
             levels.get(i).mobTypes.add(Witch.class);
             if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
         }
+    }
+
+    public static void clearGame(){
+        levels=new ArrayList<>();
+        currentLevelIndex=0;
     }
 }
