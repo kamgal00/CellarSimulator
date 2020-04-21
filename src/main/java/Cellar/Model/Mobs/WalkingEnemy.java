@@ -2,11 +2,48 @@ package Cellar.Model.Mobs;
 
 import Cellar.Model.Level;
 import Cellar.Model.Model;
+import javafx.util.Pair;
 
 public abstract class WalkingEnemy extends Enemy {
-    public WalkingEnemy(Level world) { super(world);}
+    MoveAutomation auto;
+    public WalkingEnemy(Level w) {
+        super(w);
+        auto = new MoveAutomation(this,true) {
+            @Override
+            public void setActions() {
+                addAction(new Sleep(2));
+                addAction(new GoTo(false) {
+                    @Override
+                    public Pair<Integer, Integer> getTarget() {
+                        return world.randomField();
+                    }
+                });
+                addAction(new Sleep(3));
+            }
+
+            @Override
+            public boolean interruptCondition() {
+                if(world.field[y][x].distance!=-1) return true;
+                return false;
+            }
+        };
+    }
     public void moveMob()
     {
+        if(auto.isActive())
+        {
+            auto.step();
+            if(auto.currentState!= MoveAutomation.Status.interrupted) return;
+        }
+        if(world.field[y][x].distance==-1)
+        {
+            auto.start();
+            if(auto.isActive())
+            {
+                auto.step();
+                if(auto.currentState!= MoveAutomation.Status.interrupted) return;
+            }
+        }
         Mob m = move(decide());
         if(m==null) return;
         if(m!=this)
