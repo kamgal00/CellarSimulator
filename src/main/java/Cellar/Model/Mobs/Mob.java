@@ -43,16 +43,16 @@ public abstract class Mob {
         {
             if(dmg <= 0)
             {
-                enemy.hp -= 1;
                 System.out.println(this.getClass().getSimpleName()+" dealt 1 damage to a "+enemy.getClass().getSimpleName()+"!");
+                enemy.takeDamage(1);
             }
             else
             {
-                enemy.hp -= dmg;
                 System.out.println(this.getClass().getSimpleName()+" dealt "+dmg+" damage to a "+enemy.getClass().getSimpleName()+"!");
+                enemy.takeDamage(dmg);
             }
         }
-        if(enemy.hp < 0) enemy.hp = 0;
+        //if(enemy.hp < 0) enemy.hp = 0;
         currentAction=actionType.attack;
     }
     public boolean isVisible()
@@ -258,5 +258,25 @@ public abstract class Mob {
                 }
         }
         return null;
+    }
+    void takeDamage(int d)
+    {
+        hp-=d;
+        if(hp<=0)
+        {
+            hp=0;
+            die();
+        }
+    }
+    void onDeath()
+    {
+
+    }
+    void die()
+    {
+        onDeath();
+        world.field[y][x].mob=null;
+        world.mobs.remove(this);
+        System.out.println(this.getClass().getSimpleName()+" died!");
     }
 }

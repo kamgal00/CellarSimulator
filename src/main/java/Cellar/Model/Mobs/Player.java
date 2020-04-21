@@ -15,6 +15,21 @@ public class Player extends Mob {
     public int exp;
     boolean isEnemyNearby;
     boolean surprise;
+    void gainExp(int expp)
+    {
+        exp+=expp;
+        while(exp>=level*level*10){
+            exp-=level*level*10;
+            level++;
+            maxHp*=11;
+            maxHp/=10;
+            hp=player.maxHp;
+            attack*=11;
+            attack/=10;
+            defense*=6;
+            defense/=5;
+        }
+    }
     void findEnemy()
     {
         for(int j=Math.max(y-7,0);j<Math.min(y+8,levelSize*roomSize);j++)

@@ -32,7 +32,7 @@ public class PathFinder {
             parent=p;
             coordinates=x;
         }
-    }
+    } 
     public static ArrayList<Pair<Integer,Integer>> findPath(boolean discoveredMatters,Level world,Pair<Integer,Integer> begin, Pair<Integer,Integer> end)
     {
         if(begin==null||end==null||world==null) return null;

@@ -59,7 +59,7 @@ public class UberBrain {
             showBackground(gc);
             calculateDistance();
             showMob(player);
-            ArrayList<Mob> dead = new ArrayList<Mob>();
+            /*ArrayList<Mob> dead = new ArrayList<Mob>();
             for(int i = 0; i < currentLevel.mobs.size(); i++)
             {
                 if(currentLevel.mobs.get(i).hp <= 0)
@@ -82,7 +82,7 @@ public class UberBrain {
                     currentLevel.field[dead.get(dead.size() - 1).y][dead.get(dead.size() - 1).x].mob=null;
                 }
             }
-            currentLevel.mobs.removeAll(dead);
+            currentLevel.mobs.removeAll(dead);*/
             currentLevel.mobs.stream().forEach(mob -> {
                 if (mob instanceof Player) return;
                 mob.moveMob();
