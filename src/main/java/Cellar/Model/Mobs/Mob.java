@@ -277,9 +277,9 @@ public abstract class Mob {
     }
     void die()
     {
-        onDeath();
         world.field[y][x].mob=null;
         world.mobs.remove(this);
         System.out.println(this.getClass().getSimpleName()+" died!");
+        onDeath();
     }
 }

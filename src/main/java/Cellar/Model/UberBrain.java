@@ -203,7 +203,6 @@ public class UberBrain {
                     }
                     if(placeable){
                         currentLevel.addMob(mob, y, x);
-                        System.out.println("Generated "+mob.getClass().getSimpleName() + " at x="+ x+ ", y="+y);
                         return;
                     }
                 }

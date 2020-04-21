@@ -61,6 +61,7 @@ public class Level {
 
         mobs.add(mob);
         field[mob.y][mob.x].mob=mob;
+        System.out.println("Generated "+mob.getClass().getSimpleName() + " at x="+ x+ ", y="+y);
     }
 
     public void cleanDistance(){
