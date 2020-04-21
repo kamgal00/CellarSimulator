@@ -14,7 +14,7 @@ public class Model {
     public static int maxLevel=10;
     public static Dir direction= Dir.none;
     public enum Dir {
-        left, right, up, down, none,leftDown,leftUp,rightDown,rightUp
+        left, right, up, down, none,leftDown,leftUp,rightDown,rightUp,wait
     }
 
     public static ArrayList<Level> levels=new ArrayList<>();

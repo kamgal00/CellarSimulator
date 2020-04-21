@@ -70,6 +70,9 @@ public abstract class Mob {
             case none:
                 currentAction=actionType.none;
                 return this;
+            case wait:
+                currentAction=actionType.wait;
+                return this;
             case up:
                 if(world.field[y-1][x].getType()!= Field.TypeOfField.wall)
                 {

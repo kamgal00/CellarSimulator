@@ -11,7 +11,7 @@ import static Cellar.Model.Model.*;
 
 public class ActionControl {
     Object lock;
-    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight;
+    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight,isSpace;
     volatile KeyCode lastPressed;
     Object mouseLock;
     boolean isPressed;
@@ -29,6 +29,7 @@ public class ActionControl {
         isDown=false;
         isLeft=false;
         isRight=false;
+        isSpace=false;
         lastPressed=null;
     }
     public void keyPressed(KeyEvent key)
@@ -47,6 +48,7 @@ public class ActionControl {
             if (key.getCode() == KeyCode.DOWN) isDown=true;
             if (key.getCode() == KeyCode.LEFT) isLeft=true;
             if (key.getCode() == KeyCode.RIGHT) isRight=true;
+            if (key.getCode() == KeyCode.SPACE) isSpace=true;
             lastPressed=key.getCode();
             updateDirection();
         }
@@ -67,6 +69,7 @@ public class ActionControl {
             if (key.getCode() == KeyCode.DOWN) isDown=false;
             if (key.getCode() == KeyCode.LEFT) isLeft=false;
             if (key.getCode() == KeyCode.RIGHT) isRight=false;
+            if (key.getCode() == KeyCode.SPACE) isSpace=false;
             if(lastPressed==key.getCode())
             {
                 if(isW) lastPressed=KeyCode.W;
@@ -81,6 +84,7 @@ public class ActionControl {
                 else if(isDown) lastPressed=KeyCode.DOWN;
                 else if(isLeft) lastPressed=KeyCode.LEFT;
                 else if(isRight) lastPressed=KeyCode.RIGHT;
+                else if(isSpace) lastPressed=KeyCode.SPACE;
                 else lastPressed=null;
             }
             updateDirection();
@@ -101,6 +105,7 @@ public class ActionControl {
         else if(lastPressed==KeyCode.LEFT) Model.direction=Dir.left;
         else if(lastPressed==KeyCode.RIGHT) Model.direction=Dir.right;
         else if(lastPressed==KeyCode.DOWN) Model.direction=Dir.down;
+        else if(lastPressed==KeyCode.SPACE ) Model.direction=Dir.wait;
     }
     public void mouseClick(MouseEvent click)
     {
