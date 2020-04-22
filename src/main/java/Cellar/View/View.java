@@ -61,19 +61,7 @@ public class View {
     }
 
     public static void showItem(Item item, int y, int x){
-        if(Weapon.class.isAssignableFrom(item.getClass())){
-            gc.setFill(Color.DARKBLUE);
-        }
-        else if(Armor.class.isAssignableFrom(item.getClass())){
-            gc.setFill(Color.DARKGREEN);
-        }
-        else if(Shield.class.isAssignableFrom(item.getClass())){
-            gc.setFill(Color.DARKGOLDENROD);
-        }
-        else {
-            gc.setFill(Color.WHITE);
-        }
-        gc.fillOval(x*cornerSize, y*cornerSize, cornerSize, cornerSize);
+        gc.drawImage(item.texture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
     }
 
     public static void showMob(Mob mob){
