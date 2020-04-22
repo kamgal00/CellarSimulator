@@ -134,7 +134,7 @@ public class Player extends Mob {
         if(mouse!=null)
         {
             //System.out.println("Wcisnięto pole "+mouse.getValue()+" "+mouse.getKey());
-            if(mouse.getKey()-y>=-1&&mouse.getKey()-y<=1&&mouse.getValue()-x>=-1&&mouse.getValue()-x<=1)
+            if(mouse.getKey()-y>=-1&&mouse.getKey()-y<=1&&mouse.getValue()-x>=-1&&mouse.getValue()-x<=1&&world.field[mouse.getKey()][mouse.getValue()].mob!=null)
             {
                 Dir direct=null;
                 switch (mouse.getKey()-y)
@@ -160,6 +160,16 @@ public class Player extends Mob {
                                 direct=Dir.left;
                                 break;
                             case 0:
+                                if(world.field[y][x].hasItem())
+                                {
+                                    if(pickup())
+                                    {
+                                        currentAction=actionType.pickup;
+                                        return;
+                                    }
+                                    direct=Dir.none;
+                                    break;
+                                }
                                 currentAction=actionType.wait;
                                 return;
                             case 1:
