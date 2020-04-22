@@ -18,6 +18,7 @@ public class Player extends Mob {
     public int exp;
     boolean isEnemyNearby;
     boolean surprise;
+    public boolean readyToChangeLevel;
     void gainExp(int expp)
     {
         exp+=expp;
@@ -69,7 +70,7 @@ public class Player extends Mob {
                         return mouse;
                     }
                 });
-                addAction(new SimpleAction(()->pickup()));
+                addAction(new SimpleAction(()->pickup(isEnemyNearby)));
             }
             @Override
             public boolean interruptCondition()
@@ -81,6 +82,7 @@ public class Player extends Mob {
             }
         };
         eq= new Equipment();
+        readyToChangeLevel=false;
     }
 
     @Override
@@ -98,8 +100,12 @@ public class Player extends Mob {
         return blockChance+eq.currentBonus.additionalBlockChance;
     }
 
-    public boolean pickup()
+    public boolean pickup(boolean breakCondition)
     {
+        if(breakCondition) {
+            return false;
+        }
+        readyToChangeLevel=true;
         if(!world.field[y][x].hasItem()) return false;
         Item item = world.field[y][x].getItem();
         if(eq.equip(item))
@@ -124,11 +130,17 @@ public class Player extends Mob {
     }
     @Override
     public void moveMob() {
+        readyToChangeLevel=false;
         findEnemy();
         if(auto.isActive())
         {
             auto.step();
             if(auto.currentState!= MoveAutomation.Status.interrupted) return;
+        }
+        if(readyToChangeLevel&&((y==world.entranceY&&x==world.entranceX)||(y==world.exitY&&x==world.exitX)))
+        {
+            currentAction=actionType.wait;
+            return;
         }
         mouse=Controller.action.getMouse();
         if(mouse!=null)
@@ -160,17 +172,8 @@ public class Player extends Mob {
                                 direct=Dir.left;
                                 break;
                             case 0:
-                                if(world.field[y][x].hasItem())
-                                {
-                                    if(pickup())
-                                    {
-                                        currentAction=actionType.pickup;
-                                        return;
-                                    }
-                                    direct=Dir.none;
-                                    break;
-                                }
-                                currentAction=actionType.wait;
+                                if(pickup(false)) currentAction=actionType.pickup;
+                                else currentAction=actionType.wait;
                                 return;
                             case 1:
                                 direct=Dir.right;
@@ -215,6 +218,13 @@ public class Player extends Mob {
                 System.out.println(xd);
                 System.out.println(PathFinder.findPath(world,new Pair<>(y,x),xd));*/
             }
+        }
+        if(direction==Dir.pickup)
+        {
+            if(pickup(false)) currentAction=actionType.pickup;
+            else if((y==world.entranceY&&x==world.entranceX)||(y==world.exitY)&&(x==world.exitX)) currentAction=actionType.wait;
+            else currentAction=actionType.none;
+            return;
         }
         Mob en = move(direction);
         if(en!=this)

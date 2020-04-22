@@ -72,6 +72,7 @@ public abstract class Mob {
             case none:
                 currentAction=actionType.none;
                 return this;
+            case pickup:
             case wait:
                 currentAction=actionType.wait;
                 return this;

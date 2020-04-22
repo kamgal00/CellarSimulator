@@ -34,7 +34,7 @@ public class UberBrain {
             boolean changedLevel = false;
             //nextLevel
             if (currentLevelIndex < maxLevel - 1) {
-                if (player.y == currentLevel.exitY && player.x == currentLevel.exitX) {
+                if (player.y == currentLevel.exitY && player.x == currentLevel.exitX&&player.readyToChangeLevel) {
                     currentLevelIndex++;
                     currentLevel.mobs.remove(player);
                     currentLevel = levels.get(currentLevelIndex);
@@ -46,7 +46,7 @@ public class UberBrain {
 
             //prevLevel
             if (currentLevelIndex > 0) {
-                if (player.y == currentLevel.entranceY && player.x == currentLevel.entranceX && !changedLevel) {
+                if (player.y == currentLevel.entranceY && player.x == currentLevel.entranceX && !changedLevel&&player.readyToChangeLevel) {
                     currentLevelIndex--;
                     currentLevel.mobs.remove(player);
                     currentLevel = levels.get(currentLevelIndex);
