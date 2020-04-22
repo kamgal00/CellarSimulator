@@ -66,9 +66,9 @@ public class RightInterface {
 
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/3));
-        gc.fillText("ATK "+player.attack, width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
+        gc.fillText("ATK "+player.getAttack(), width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/3));
-        gc.fillText("DEF "+player.defense, width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
+        gc.fillText("DEF "+player.getDefense(), width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
     }
 }

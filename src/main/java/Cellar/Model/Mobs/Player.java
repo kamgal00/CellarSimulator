@@ -1,5 +1,7 @@
 package Cellar.Model.Mobs;
 import Cellar.Controller.Controller;
+import Cellar.Model.Equipment;
+import Cellar.Model.Items.Item;
 import Cellar.Model.Level;
 import Cellar.Model.Model.*;
 import Cellar.Model.PathFinder;
@@ -11,6 +13,7 @@ import static Cellar.Model.Model.*;
 public class Player extends Mob {
     MoveAutomation auto;
     Pair<Integer,Integer> mouse;
+    Equipment eq;
     public int level;
     public int exp;
     boolean isEnemyNearby;
@@ -66,6 +69,7 @@ public class Player extends Mob {
                         return mouse;
                     }
                 });
+                addAction(new SimpleAction(()->pickup()));
             }
             @Override
             public boolean interruptCondition()
@@ -76,6 +80,35 @@ public class Player extends Mob {
                 return false;
             }
         };
+        eq= new Equipment();
+    }
+
+    @Override
+    public int getAttack() {
+        return attack+eq.currentBonus.additionalAttack;
+    }
+
+    @Override
+    public int getDefense() {
+        return defense+eq.currentBonus.additionalDefense;
+    }
+
+    @Override
+    public int getBlockChance() {
+        return blockChance+eq.currentBonus.additionalBlockChance;
+    }
+
+    public boolean pickup()
+    {
+        if(!world.field[y][x].hasItem()) return false;
+        Item item = world.field[y][x].getItem();
+        if(eq.equip(item))
+        {
+            System.out.println("Player found "+item.getClass().getSimpleName()+"!");
+            return true;
+        }
+        world.field[y][x].putItem(item);
+        return false;
     }
     @Override
     public void setParams() {

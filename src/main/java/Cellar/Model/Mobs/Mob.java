@@ -32,6 +32,9 @@ public abstract class Mob {
     }
     public abstract void setParams();
     public abstract void moveMob();
+    public int getAttack() { return attack;}
+    public int getDefense() { return defense;}
+    public int getBlockChance() { return blockChance;}
     public void attack(Mob enemy)
     {
         Random rand = new Random();
