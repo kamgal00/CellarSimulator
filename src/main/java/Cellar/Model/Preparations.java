@@ -4,6 +4,7 @@ import Cellar.Model.Mobs.*;
 
 import java.util.ArrayList;
 
+import static Cellar.Model.ItemGenerator.generateItems;
 import static Cellar.Model.Model.*;
 import static Cellar.Model.UberBrain.discover;
 
@@ -14,6 +15,7 @@ public class Preparations {
             RoomGenerator.loadRoomGenerator();
             LevelGenerator levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
+            generateItems(levels.get(i));
         }
 
         currentLevel=levels.get(0);
@@ -24,6 +26,7 @@ public class Preparations {
         if(levels.get(0).mobTypes.isEmpty()){
             assignMobs();
         }
+
     }
 
     public static void assignMobs(){

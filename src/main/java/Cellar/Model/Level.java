@@ -1,5 +1,6 @@
 package Cellar.Model;
 
+import Cellar.Model.Items.Item;
 import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Player;
 import javafx.util.Pair;
@@ -21,6 +22,7 @@ public class Level {
     public int exitX;
     public int exitY;
     public ArrayList<Mob> mobs=new ArrayList<>();
+    public ArrayList<Class<? extends Item>> itemTypes=new ArrayList<>();
     public ArrayList<Class<? extends Mob>> mobTypes=new ArrayList<>();
     public int minEnemies=3;
     public int maxEnemies=10;
@@ -76,7 +78,7 @@ public class Level {
 
         Random rand = new Random();
         int y=0, x=0;
-        while(field[y][x].getType()== Field.TypeOfField.wall){
+        while(field[y][x].getType()!= Field.TypeOfField.floor){
             y=rand.nextInt(roomSize*levelSize);
             x=rand.nextInt(roomSize*levelSize);
         }
