@@ -26,6 +26,8 @@ public class Level {
     public ArrayList<Class<? extends Mob>> mobTypes=new ArrayList<>();
     public int minEnemies=3;
     public int maxEnemies=10;
+    public int minItems=3;
+    public int maxItems=5;
 
 
     //width -- number of rooms in row

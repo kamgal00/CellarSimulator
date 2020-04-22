@@ -1,6 +1,10 @@
 package Cellar.View;
 
 import Cellar.Model.Field;
+import Cellar.Model.Items.Armor;
+import Cellar.Model.Items.Item;
+import Cellar.Model.Items.Shield;
+import Cellar.Model.Items.Weapon;
 import Cellar.Model.Mobs.Mob;
 import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,6 +55,25 @@ public class View {
                 gc.drawImage(entranceTexture, x*cornerSize, y*cornerSize, cornerSize, cornerSize);
                 break;
         }
+        if(field.mob==null && !field.items.isEmpty()){
+            showItem(field.items.get(field.items.size()-1), y, x);
+        }
+    }
+
+    public static void showItem(Item item, int y, int x){
+        if(Weapon.class.isAssignableFrom(item.getClass())){
+            gc.setFill(Color.DARKBLUE);
+        }
+        else if(Armor.class.isAssignableFrom(item.getClass())){
+            gc.setFill(Color.DARKGREEN);
+        }
+        else if(Shield.class.isAssignableFrom(item.getClass())){
+            gc.setFill(Color.DARKGOLDENROD);
+        }
+        else {
+            gc.setFill(Color.WHITE);
+        }
+        gc.fillOval(x*cornerSize, y*cornerSize, cornerSize, cornerSize);
     }
 
     public static void showMob(Mob mob){

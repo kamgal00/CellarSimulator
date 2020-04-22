@@ -1,6 +1,12 @@
 package Cellar.Model.Items;
 
+import Cellar.Model.Level;
+
 public abstract class Shield extends Item {
-    int defence;
-    int block;
+    public int defence;
+    public int block;
+
+    public Shield(Level level, int y, int x) {
+        super(level, y, x);
+    }
 }

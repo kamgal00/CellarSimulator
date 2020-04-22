@@ -1,5 +1,8 @@
 package Cellar.Model;
 
+import Cellar.Model.Items.Armors.BasicArmor;
+import Cellar.Model.Items.Shields.BasicShield;
+import Cellar.Model.Items.Weapons.BasicWeapon;
 import Cellar.Model.Mobs.*;
 
 import java.util.ArrayList;
@@ -11,22 +14,25 @@ import static Cellar.Model.UberBrain.discover;
 public class Preparations {
     public static void prepareLevels(){
 
+        //generating all levels
         for(int i=0; i<maxLevel; i++){
             RoomGenerator.loadRoomGenerator();
             LevelGenerator levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
-            generateItems(levels.get(i));
         }
 
+        //making player
         currentLevel=levels.get(0);
         player=new Player(currentLevel);
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
         discover();
 
-        if(levels.get(0).mobTypes.isEmpty()){
-            assignMobs();
+        //adjusting levels
+        assignMobs();
+        assignItems();
+        for(int i=0; i<maxLevel; i++){
+            generateItems(levels.get(i));
         }
-
     }
 
     public static void assignMobs(){
@@ -35,6 +41,14 @@ public class Preparations {
             levels.get(i).mobTypes.add(Witch.class);
             if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
             else if(i>=2){levels.get(i).mobTypes.add(LittleSlime.class);}
+        }
+    }
+
+    public static void assignItems(){
+        for(int i=0; i<maxLevel; i++){
+            levels.get(i).itemTypes.add(BasicWeapon.class);
+            levels.get(i).itemTypes.add(BasicShield.class);
+            levels.get(i).itemTypes.add(BasicArmor.class);
         }
     }
 
