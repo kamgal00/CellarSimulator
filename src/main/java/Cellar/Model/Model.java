@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Model {
+    public static boolean endGame;
     public static int width = 15;
     public static int height = 15;
     public static int cornerSize = 48;

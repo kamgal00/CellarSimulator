@@ -30,7 +30,7 @@ public class UberBrain {
                 break;
         }
         if(turn) {
-            if(player.hp == 0) System.out.println("GAME OVER");
+            if(endGame) System.out.println("GAME OVER");
             boolean changedLevel = false;
             //nextLevel
             if (currentLevelIndex < maxLevel - 1) {
@@ -83,11 +83,18 @@ public class UberBrain {
                 }
             }
             currentLevel.mobs.removeAll(dead);*/
-            currentLevel.mobs.stream().forEach(mob -> {
+            while(!endGame)
+            {
+                Mob current = currentLevel.nextMob();
+                if(current==player) break;
+                current.moveMob();
+                showMob(current);
+            }
+            /*currentLevel.mobs.stream().forEach(mob -> {
                 if (mob instanceof Player) return;
                 mob.moveMob();
                 showMob(mob);
-            });
+            });*/
         }
         showRightInterface();
     }

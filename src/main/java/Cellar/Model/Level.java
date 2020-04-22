@@ -29,7 +29,12 @@ public class Level {
     public int minItems=3;
     public int maxItems=5;
 
-
+    public Mob nextMob()
+    {
+        Mob out = mobs.remove(0);
+        mobs.add(out);
+        return out;
+    }
     //width -- number of rooms in row
     //height -- number of rooms in column
     public Level(int width, int height){

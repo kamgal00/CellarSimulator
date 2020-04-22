@@ -55,5 +55,6 @@ public class Preparations {
     public static void clearGame(){
         levels=new ArrayList<>();
         currentLevelIndex=0;
+        endGame=false;
     }
 }

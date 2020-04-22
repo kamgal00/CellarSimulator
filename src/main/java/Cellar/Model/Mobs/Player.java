@@ -183,4 +183,9 @@ public class Player extends Mob {
             }
         }
     }
+
+    @Override
+    void onDeath() {
+        endGame=true;
+    }
 }
