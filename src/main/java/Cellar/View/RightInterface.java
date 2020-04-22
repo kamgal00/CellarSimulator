@@ -51,10 +51,12 @@ public class RightInterface {
         gc.setFill(Color.DARKRED);
         gc.fillRect(width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+cornerSize, cornerSize*5, cornerSize/4);
 
-        gc.setFill(Color.DARKGREEN);
-        gc.fillRect(width*cornerSize+cornerSize/2-2, 45+3*roomSize*levelSize+cornerSize-2, cornerSize*5*player.hp/player.maxHp+4, cornerSize/4+4);
-        gc.setFill(Color.GREEN);
-        gc.fillRect(width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+cornerSize, cornerSize*5*player.hp/player.maxHp, cornerSize/4);
+        if(player.hp>0){
+            gc.setFill(Color.DARKGREEN);
+            gc.fillRect(width*cornerSize+cornerSize/2-2, 45+3*roomSize*levelSize+cornerSize-2, cornerSize*5*player.hp/player.maxHp+4, cornerSize/4+4);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(width*cornerSize+cornerSize/2, 45+3*roomSize*levelSize+cornerSize, cornerSize*5*player.hp/player.maxHp, cornerSize/4);
+        }
 
         //show stats
         gc.setFill(Color.BLACK);
