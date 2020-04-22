@@ -38,10 +38,10 @@ public abstract class Mob {
     public void attack(Mob enemy)
     {
         Random rand = new Random();
-        int dmg_min = 8 * this.attack / 10;
-        int dmg_max = (125 * this.attack + 99) / 100;
-        int dmg = (rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min) - enemy.defense;
-        if(rand.nextInt(101) <= enemy.blockChance) System.out.println(this.getClass().getSimpleName()+"'s attack blocked by a "+enemy.getClass().getSimpleName()+"!");
+        int dmg_min = 8 * this.getAttack() / 10;
+        int dmg_max = (125 * this.getAttack() + 99) / 100;
+        int dmg = (rand.nextInt((dmg_max - dmg_min) + 1) + dmg_min) - enemy.getDefense();
+        if(rand.nextInt(101) <= enemy.getBlockChance()) System.out.println(this.getClass().getSimpleName()+"'s attack blocked by a "+enemy.getClass().getSimpleName()+"!");
         else
         {
             if(dmg <= 0)
@@ -55,7 +55,6 @@ public abstract class Mob {
                 enemy.takeDamage(dmg);
             }
         }
-        //if(enemy.hp < 0) enemy.hp = 0;
         currentAction=actionType.attack;
     }
     public boolean isVisible()
