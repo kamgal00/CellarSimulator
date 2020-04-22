@@ -84,6 +84,9 @@ public abstract class MoveAutomation {
 
 
     //Action classes
+    public interface quickAction{
+        boolean act();
+    }
     public abstract class Action{
         Status state;
         public abstract void step();
@@ -219,6 +222,25 @@ public abstract class MoveAutomation {
         public void init() {
             super.init();
             counter=sleepTime;
+        }
+    }
+    public  class SimpleAction extends Action{
+        quickAction a;
+        public SimpleAction(quickAction action)
+        {
+            super();
+            a=action;
+        }
+
+        @Override
+        public void step() {
+            if(state!=Status.started)
+            {
+                state=Status.interrupted;
+                return;
+            }
+            if(a.act()) state=Status.stopped;
+            else state=Status.interrupted;
         }
     }
 }
