@@ -1,18 +1,18 @@
 package Cellar.Model.Mobs;
 import Cellar.Controller.Controller;
 import Cellar.Model.Equipment;
+import Cellar.Model.Field;
 import Cellar.Model.Items.Item;
 import Cellar.Model.Level;
+import Cellar.Model.Mobs.Actions.ActionType;
 import Cellar.Model.Model.*;
-import Cellar.Model.PathFinder;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 import static Cellar.Model.Model.*;
 
 public class Player extends Mob {
-    MoveAutomation auto;
-    Pair<Integer,Integer> mouse;
+    public Pair<Integer,Integer> mouse;
     Equipment eq;
     public int level;
     public int exp;
@@ -81,6 +81,7 @@ public class Player extends Mob {
                 return false;
             }
         };
+        hasAuto=true;
         eq= new Equipment();
         readyToChangeLevel=false;
     }
@@ -105,7 +106,11 @@ public class Player extends Mob {
         if(breakCondition) {
             return false;
         }
-        readyToChangeLevel=true;
+        if((world.field[y][x].getType()== Field.TypeOfField.entrance||world.field[y][x].getType()== Field.TypeOfField.exit)&&!world.field[y][x].hasItem()){
+            readyToChangeLevel=true;
+            currentAction=actionType.wait;
+            return true;
+        }
         if(!world.field[y][x].hasItem()) return false;
         Item item = world.field[y][x].getItem();
         if(eq.equip(item))
@@ -128,7 +133,13 @@ public class Player extends Mob {
         rightIm=new Image("file:resources/manright.gif");
         leftIm=new Image("file:resources/manleft.gif");
     }
+
     @Override
+    void getView() {
+        readyToChangeLevel=false;
+        findEnemy();
+    }
+    /*@Override
     public void moveMob() {
         readyToChangeLevel=false;
         findEnemy();
@@ -214,9 +225,6 @@ public class Player extends Mob {
                     auto.step();
                     if(auto.currentState!= MoveAutomation.Status.interrupted) return;
                 }
-                /*Pair<Integer,Integer> xd=new Pair<>(y+mouse.getKey()-7,x+mouse.getValue()-7);
-                System.out.println(xd);
-                System.out.println(PathFinder.findPath(world,new Pair<>(y,x),xd));*/
             }
         }
         if(direction==Dir.pickup)
@@ -235,6 +243,11 @@ public class Player extends Mob {
                 attack(en);
             }
         }
+    }*/
+
+    @Override
+    ActionType getAction() {
+        return Controller.action.getPlayerAction();
     }
 
     @Override

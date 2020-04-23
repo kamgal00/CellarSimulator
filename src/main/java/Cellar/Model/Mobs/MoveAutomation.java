@@ -11,7 +11,7 @@ public abstract class MoveAutomation {
     Mob child;
     public enum Status{stopped,started,interrupted}
     boolean obstacleCase;
-    Status currentState;
+    public Status currentState;
     ArrayList<Action> actionList;
     int currentAction;
     public MoveAutomation(Mob a,boolean interruptWhenObstacle)
@@ -116,7 +116,15 @@ public abstract class MoveAutomation {
                 state=Status.interrupted;
                 return;
             }
-            if(child.world.field[path.get(c).getKey()][path.get(c).getValue()].mob!=null)
+            Mob.Directions dir = Mob.Directions.getDirection(child,path.get(c));
+            if(!dir.pushMob(child))
+            {
+                state=Status.interrupted;
+                return;
+            }
+            c++;
+            if(c==path.size()) state=Status.stopped;
+            /*if(child.world.field[path.get(c).getKey()][path.get(c).getValue()].mob!=null)
             {
                 if(obstacleCase)
                 {
@@ -175,10 +183,7 @@ public abstract class MoveAutomation {
                             child.move(Model.Dir.leftUp); ok=true;
                             break;
                     }
-            }
-            if(!ok) child.move(Model.Dir.none);
-            c++;
-            if(c==path.size()) state=Status.stopped;
+            }*/
         }
         public void init()
         {

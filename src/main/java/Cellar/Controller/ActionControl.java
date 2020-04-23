@@ -1,5 +1,8 @@
 package Cellar.Controller;
 
+import Cellar.Model.Field;
+import Cellar.Model.Mobs.*;
+import Cellar.Model.Mobs.Actions.*;
 import Cellar.Model.Model;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -12,7 +15,23 @@ import static Cellar.Model.Preparations.*;
 
 public class ActionControl {
     Object lock;
-    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isX,isUp,isDown,isLeft,isRight,isSpace, isRestart;
+    volatile boolean isW,isA,isD,isS,isQ,isE,isZ,isC,isUp,isDown,isLeft,isRight, isRestart;
+    Object pickupLock;
+    volatile boolean isXHandler;
+    boolean isPickup()
+    {
+        synchronized (pickupLock)
+        {
+            if(isXHandler)
+            {
+                isXHandler=false;
+                return true;
+            }
+            return false;
+        }
+    }
+    boolean isWait() { synchronized (lock) {return isSpace; }}
+    volatile boolean isSpace;
     volatile KeyCode lastPressed;
     Object mouseLock;
     boolean isPressed;
@@ -22,6 +41,7 @@ public class ActionControl {
     {
         lock=new Object();
         mouseLock=new Object();
+        pickupLock = new Object();
         isPressed=false;
         isW=false;
         isA=false;
@@ -34,10 +54,14 @@ public class ActionControl {
         isSpace=false;
         lastPressed=null;
         isRestart=false;
-        isX=false;
+        isXHandler=false;
     }
     public void keyPressed(KeyEvent key)
     {
+        if(key.getCode()==KeyCode.X){
+            synchronized (pickupLock) {isXHandler=true;}
+            return;
+        }
         synchronized (lock)
         {
             if (key.getCode() == KeyCode.W) isW=true;
@@ -53,7 +77,6 @@ public class ActionControl {
             if (key.getCode() == KeyCode.LEFT) isLeft=true;
             if (key.getCode() == KeyCode.RIGHT) isRight=true;
             if (key.getCode() == KeyCode.SPACE) isSpace=true;
-            if (key.getCode() == KeyCode.X) isX=true;
             if (key.getCode() == KeyCode.R) {
                 if(!isRestart){restartTime=System.currentTimeMillis();}
                 isRestart=true;
@@ -79,7 +102,6 @@ public class ActionControl {
             if (key.getCode() == KeyCode.LEFT) isLeft=false;
             if (key.getCode() == KeyCode.RIGHT) isRight=false;
             if (key.getCode() == KeyCode.SPACE) isSpace=false;
-            if (key.getCode() == KeyCode.X) isSpace=false;
             if (key.getCode() == KeyCode.R) isRestart=false;
             if(lastPressed==key.getCode())
             {
@@ -96,8 +118,7 @@ public class ActionControl {
                 else if(isLeft) lastPressed=KeyCode.LEFT;
                 else if(isRight) lastPressed=KeyCode.RIGHT;
                 else if(isSpace) lastPressed=KeyCode.SPACE;
-                else if(isX) lastPressed=KeyCode.X;
-                if (isRestart) lastPressed=KeyCode.R;
+                else if (isRestart) lastPressed=KeyCode.R;
                 else lastPressed=null;
             }
             updateDirection();
@@ -119,7 +140,6 @@ public class ActionControl {
         else if(lastPressed==KeyCode.RIGHT) Model.direction=Dir.right;
         else if(lastPressed==KeyCode.DOWN) Model.direction=Dir.down;
         else if(lastPressed==KeyCode.SPACE ) Model.direction=Dir.wait;
-        else if(lastPressed==KeyCode.X ) Model.direction=Dir.pickup;
         else if(isRestart){
             if(System.currentTimeMillis()-restartTime>=3000){
                 System.out.println("RESTART");
@@ -170,5 +190,70 @@ public class ActionControl {
         {
             return isPressed;
         }
+    }
+    public ActionType getPlayerAction()
+    {
+        if(isPickup()){
+            return new PickupActionType(false);
+        }
+        if(isWait()) return new WaitActionType();
+        Mob.Directions dir=null;
+        synchronized (lock)
+        {
+            if(lastPressed!=null)
+                switch (lastPressed)
+                {
+                    case W: dir= Mob.Directions.up; break;
+                    case A: dir= Mob.Directions.left; break;
+                    case S: dir= Mob.Directions.down; break;
+                    case D: dir= Mob.Directions.right; break;
+                    case Q: dir= Mob.Directions.leftUp; break;
+                    case E: dir= Mob.Directions.rightUp; break;
+                    case Z: dir= Mob.Directions.leftDown; break;
+                    case C: dir= Mob.Directions.rightDown; break;
+                }
+        }
+        if(dir!=null)
+        {
+            Field n = dir.getNeighborField(player);
+            if(n.mob instanceof Enemy) return new AttackActionType(n.mob);
+            return new MoveActionType(dir);
+        }
+        if(newInput()) {
+            Pair<Integer,Integer> m = getMouse();
+            Mob mobx = currentLevel.field[m.getKey()][m.getValue()].mob;
+            if(mobx==null){
+                player.mouse=m;
+                return new AutoActionType();
+            }
+            if(mobx instanceof Player)
+            {
+                if(currentLevel.field[player.y][player.x].hasItem())
+                {
+                    return new PickupActionType(false);
+                }
+                else
+                {
+                    if(currentLevel.field[player.y][player.x].getType()== Field.TypeOfField.entrance||currentLevel.field[player.y][player.x].getType()== Field.TypeOfField.exit)
+                        return new PickupActionType(false);
+                    return new WaitActionType();
+                }
+            }
+            else if(mobx instanceof Enemy)
+            {
+                if(player.nearestFields().anyMatch(f-> f.mob==mobx)) return new AttackActionType(mobx);
+                else
+                {
+                    player.mouse=m;
+                    return new AutoActionType();
+                }
+            }
+            else
+            {
+                player.mouse=m;
+                return new AutoActionType();
+            }
+        }
+        return new NoneActionType();
     }
 }

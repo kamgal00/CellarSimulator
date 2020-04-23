@@ -16,18 +16,15 @@ import static Cellar.Model.Model.*;
 public class UberBrain {
 
     private Field currentField;
-
     public static void brainTick(GraphicsContext gc){
         boolean turn=true;
-        player.moveMob();
-        switch (player.currentAction) {
-            case none:
-                showBackground(gc);
-                currentLevel.mobs.stream().forEach(mob ->{
-                    showMob(mob);
-                });
-                turn=false;
-                break;
+        if(!player.moveMob())
+        {
+            showBackground(gc);
+            currentLevel.mobs.stream().forEach(mob ->{
+                showMob(mob);
+            });
+            turn=false;
         }
         if(turn) {
             if(endGame) System.out.println("GAME OVER");

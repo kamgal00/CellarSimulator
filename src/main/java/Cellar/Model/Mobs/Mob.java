@@ -2,11 +2,15 @@ package Cellar.Model.Mobs;
 
 import Cellar.Model.Field;
 import Cellar.Model.Level;
+import Cellar.Model.Mobs.Actions.ActionType;
 import Cellar.Model.Model;
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 
-import javax.swing.*;
 import java.util.Random;
+import java.util.stream.Stream;
+
+import static Cellar.Model.Mobs.Mob.actionType.*;
 
 public abstract class Mob {
     public int expForKill;
@@ -17,13 +21,89 @@ public abstract class Mob {
     public int blockChance;
     public int x;
     public int y;
+    public boolean hasAuto=false;
+    public MoveAutomation auto;
     public Level world;
     public Mob attackedMob;
-    public enum actionType{none, up,down,left,right,leftUp,leftDown,rightUp,rightDown,pickup,attack,wait}
+    public enum actionType{none, move,pickup,attack,wait}
+    public enum Directions {
+        none(0,0,'n'),
+        up(-1,0,'n'),
+        down(1,0,'n'),
+        left(0,-1,'l'),
+        right(0,1,'r'),
+        leftUp(-1,-1,'l' ),
+        leftDown(1,-1,'l'),
+        rightUp(-1,1,'r'),
+        rightDown(1,1,'r');
+        public char facing;
+        int dX,dY;
+        Directions( int y, int x, char f)
+        {
+            dY=y;
+            dX=x;
+            facing=f;
+        }
+        public Field getNeighborField(Mob s)
+        {
+            return s.world.field[s.y+dY][s.x+dX];
+        }
+        public boolean pushMob(Mob s)
+        {
+            if(dX==0&&dY==0) return false;
+            Field x = getNeighborField(s);
+            if(x.getType()== Field.TypeOfField.wall) return false;
+            if(x.mob!=null) return false;
+            if(facing=='l') s.currIm=s.leftIm;
+            if(facing=='r') s.currIm=s.rightIm;
+            s.world.field[s.y][s.x].mob=null;
+            s.y+=dY;
+            s.x+=dX;
+            s.world.field[s.y][s.x].mob=s;
+            return true;
+        }
+        public static Directions getDirection(Mob s,Pair<Integer,Integer> p)
+        {
+            Pair<Integer,Integer> x = new Pair<>(s.y,s.x);
+            switch (p.getKey()-x.getKey())
+            {
+                case -1:
+                    switch (p.getValue()-x.getValue())
+                    {
+                        case -1:
+                            return leftUp;
+                        case 0:
+                            return up;
+                        case 1:
+                            return rightUp;
+                    }
+                case 0:
+                    switch (p.getValue()-x.getValue())
+                    {
+                        case -1:
+                            return left;
+                        case 0:
+                            return none;
+                        case 1:
+                            return right;
+                    }
+                case 1:
+                    switch (p.getValue()-x.getValue())
+                    {
+                        case -1:
+                            return leftDown;
+                        case 0:
+                            return down;
+                        case 1:
+                            return rightDown;
+                    }
+            }
+            return none;
+        }
+    };
     public actionType currentAction;
     public Image leftIm,rightIm,currIm;
-    public Mob(Level world)
-    {
+    public Mob(Level world) {
         this.world=world;
         setParams();
         currentAction=actionType.none;
@@ -31,12 +111,33 @@ public abstract class Mob {
         currIm=rightIm;
     }
     public abstract void setParams();
-    public abstract void moveMob();
+    void getView() {};
+    public boolean moveMob() {
+        getView();
+        if(!hasAuto)
+        {
+            ActionType action = getAction();
+            return action.trigger(this);
+        }
+        else
+        {
+            if(auto.isActive())
+            {
+                auto.step();
+                if(auto.currentState== MoveAutomation.Status.interrupted) return false;
+                return true;
+            }
+            ActionType action = getAction();
+            return action.trigger(this);
+        }
+    }
+    public Stream<Field> nearestFields() {
+        return Stream.of(world.field[y-1][x],world.field[y+1][x],world.field[y][x-1],world.field[y][x+1],world.field[y-1][x-1],world.field[y-1][x+1],world.field[y+1][x-1],world.field[y+1][x+1]);
+    }
     public int getAttack() { return attack;}
     public int getDefense() { return defense;}
     public int getBlockChance() { return blockChance;}
-    public void attack(Mob enemy)
-    {
+    public void attack(Mob enemy) {
         Random rand = new Random();
         int dmg_min = 8 * this.getAttack() / 10;
         int dmg_max = (125 * this.getAttack() + 99) / 100;
@@ -57,16 +158,14 @@ public abstract class Mob {
         }
         currentAction=actionType.attack;
     }
-    public boolean isVisible()
-    {
+    public boolean isVisible() {
         return( Model.player.x-Model.width/2<=x&&Model.player.x+Model.width/2>=x&&Model.player.y-Model.height/2<=y&&Model.player.y+Model.height/2>=y);
     }
     public String toString()
     {
         return this.getClass().toString()+" "+y+" "+x;
     }
-    public Mob move(Model.Dir direct)
-    {
+    /*public Mob move(Model.Dir direct) {
         switch (direct)
         {
             case none:
@@ -264,9 +363,8 @@ public abstract class Mob {
                 }
         }
         return null;
-    }
-    void takeDamage(int d)
-    {
+    }*/
+    void takeDamage(int d) {
         hp-=d;
         if(hp<=0)
         {
@@ -274,15 +372,14 @@ public abstract class Mob {
             die();
         }
     }
-    void onDeath()
-    {
+    void onDeath() {
 
     }
-    void die()
-    {
+    void die() {
         world.field[y][x].mob=null;
         world.mobs.remove(this);
         System.out.println(this.getClass().getSimpleName()+" died!");
         onDeath();
     }
+    abstract ActionType getAction();
 }
