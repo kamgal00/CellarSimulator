@@ -4,13 +4,16 @@ import static Cellar.Model.Model.*;
 import static Cellar.View.View.*;
 
 import Cellar.Model.Field;
+import Cellar.Model.Items.Item;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class RightInterface {
     public static Image interfaceBackground=new Image("file:resources/rightInterface.png");
     public static Image minimapBackground=new Image("file:resources/minimap.png");
+    public static Image eqSlot=new Image("file:resources/eqslot.png");
 
 
     public static void showRightInterface(){
@@ -29,6 +32,10 @@ public class RightInterface {
                     }
                     if(currentLevel.field[j][i].getType()== Field.TypeOfField.exit){
                         gc.setFill(Color.DARKGREEN);
+                        gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
+                    }
+                    if(!currentLevel.field[j][i].items.isEmpty()){
+                        gc.setFill(Color.DARKORANGE);
                         gc.fillRect(width*cornerSize+cornerSize/2+3*i, 30+3*j, 3, 3);
                     }
                     if(j==player.y && i==player.x){
@@ -72,5 +79,36 @@ public class RightInterface {
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", cornerSize/3));
         gc.fillText("DEF "+player.getDefense(), width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
+
+        //show eq slots
+        //equipped
+        gc.drawImage(eqSlot, (width+1)*cornerSize+24, 425, cornerSize, cornerSize);
+        gc.drawImage(eqSlot, (width+2)*cornerSize+24, 425, cornerSize, cornerSize);
+        gc.drawImage(eqSlot, (width+3)*cornerSize+24, 425, cornerSize, cornerSize);
+
+        //in inventory
+        for(int i=0; i<=4; i++){
+            for(int j=0; j<=2; j++){
+                gc.drawImage(eqSlot, (width+i)*cornerSize+24, 500+j*cornerSize, cornerSize, cornerSize);
+            }
+        }
+
+        //show items in eq
+        Item[] items=player.eq.items;
+        for(int i=0; i<equipmentSize; i++){
+            if(items[i]!=null){
+                if(i<=2){showItemInHand(i, items[i]);}
+                else {showItemInEq(i, items[i]);}
+            }
+        }
+    }
+
+    public static void showItemInEq(int s, Item item){
+        s=s-3;
+        gc.drawImage(item.texture, (width+s%5)*cornerSize+24+2, 500+3+(s/5)*cornerSize, cornerSize-6, cornerSize-6);
+
+    }
+    public static void showItemInHand(int s, Item item){
+        gc.drawImage(item.texture, (width+s+1)*cornerSize+24+2, 425+3, cornerSize-6, cornerSize-6);
     }
 }

@@ -1,8 +1,7 @@
 package Cellar.Model;
 
 import Cellar.Model.Items.Item;
-
-import java.lang.reflect.Array;
+import static Cellar.Model.Model.*;
 
 public class Equipment {
     public class Bonus {
@@ -18,9 +17,9 @@ public class Equipment {
     }
     public Equipment()
     {
-        for(int i=0;i<15;i++) items[i]=null;
+        for(int i=0;i<equipmentSize;i++) items[i]=null;
     }
-    public Item[] items= new Item[15];
+    public Item[] items= new Item[equipmentSize];
     public Bonus currentBonus=new Bonus();
     void loadBonuses()
     {
@@ -31,7 +30,7 @@ public class Equipment {
     }
     public void swapSlots(int i,int j)
     {
-        if(i<0||j<0||j>14||i>14) return;
+        if(i<0||j<0||j>equipmentSize-1||i>equipmentSize-1) return;
         Item a = items[i];
         items[i]=items[j];
         items[j]=a;
@@ -39,7 +38,7 @@ public class Equipment {
     }
     public boolean equip(Item x)
     {
-        for(int i=0;i<15;i++)
+        for(int i=0;i<equipmentSize;i++)
         {
             if(items[i]==null)
             {

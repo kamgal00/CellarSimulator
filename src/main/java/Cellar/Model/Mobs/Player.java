@@ -13,7 +13,7 @@ import static Cellar.Model.Model.*;
 
 public class Player extends Mob {
     public Pair<Integer,Integer> mouse;
-    Equipment eq;
+    public Equipment eq;
     public int level;
     public int exp;
     boolean isEnemyNearby;

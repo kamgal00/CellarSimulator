@@ -23,4 +23,5 @@ public class Model {
     public static Level currentLevel;
     public static Player player;
     public static GraphicsContext gc;
+    public static int equipmentSize=18;
 }
