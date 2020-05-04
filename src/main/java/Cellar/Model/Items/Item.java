@@ -11,5 +11,5 @@ public abstract class Item {
         level.field[y][x].items.add(this);
     }
 
-    public abstract void loadBonus(Equipment.Bonus b);
+    public abstract void loadBonus(Equipment.Bonus b, int ind);
 }

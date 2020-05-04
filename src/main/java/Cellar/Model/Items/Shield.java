@@ -12,7 +12,7 @@ public abstract class Shield extends Item {
     }
 
     @Override
-    public void loadBonus(Equipment.Bonus b) {
+    public void loadBonus(Equipment.Bonus b, int ind) {
         b.additionalDefense+=defence;
         b.additionalBlockChance+=block;
     }

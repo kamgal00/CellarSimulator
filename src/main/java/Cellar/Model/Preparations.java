@@ -1,6 +1,7 @@
 package Cellar.Model;
 
 import Cellar.Model.Items.Armors.BasicArmor;
+import Cellar.Model.Items.Jar;
 import Cellar.Model.Items.Shields.BasicShield;
 import Cellar.Model.Items.Weapons.BasicWeapon;
 import Cellar.Model.Mobs.*;
@@ -20,6 +21,12 @@ public class Preparations {
             LevelGenerator levelGenerator=new LevelGenerator();
             levels.add(levelGenerator.levelGenerate());
         }
+
+        //generating jar
+        Level lastLevel=levels.get(maxLevel-1);
+        lastLevel.field[lastLevel.exitY][lastLevel.exitX]=new Field(Field.TypeOfField.floor);
+        new Jar(lastLevel, lastLevel.exitY, lastLevel.exitX);
+        System.out.println("generated jar at y="+lastLevel.exitY+", x="+lastLevel.exitX);
 
         //making player
         currentLevel=levels.get(0);

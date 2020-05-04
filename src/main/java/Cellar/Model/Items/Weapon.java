@@ -11,7 +11,11 @@ public abstract class Weapon extends Item {
     }
 
     @Override
-    public void loadBonus(Equipment.Bonus b) {
+    public void loadBonus(Equipment.Bonus b, int ind) {
+        if(ind==0){
+            b.additionalAttack+=(attack/2);
+            return;
+        }
         b.additionalAttack+=attack;
     }
 }
