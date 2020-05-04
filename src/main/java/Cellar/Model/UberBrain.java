@@ -18,6 +18,20 @@ public class UberBrain {
     private Field currentField;
     public static void brainTick(GraphicsContext gc){
         boolean turn=true;
+        if(endGame){
+            showBackground(gc);
+            currentLevel.cleanDistance();
+            for(int i=0; i<currentLevel.mobs.size(); i++){
+                Mob current = currentLevel.nextMob();
+                current.moveMob();
+                showMob(current);
+            }
+            showRightInterface();
+            try {
+                Thread.sleep(100);
+            }catch (Exception e){}
+            return;
+        }
         if(!player.moveMob())
         {
             showBackground(gc);
@@ -87,11 +101,6 @@ public class UberBrain {
                 current.moveMob();
                 showMob(current);
             }
-            /*currentLevel.mobs.stream().forEach(mob -> {
-                if (mob instanceof Player) return;
-                mob.moveMob();
-                showMob(mob);
-            });*/
         }
         showRightInterface();
     }

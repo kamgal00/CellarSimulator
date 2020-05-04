@@ -6,15 +6,14 @@ import static Cellar.View.View.*;
 import Cellar.Model.Field;
 import Cellar.Model.Items.Item;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class RightInterface {
-    public static Image interfaceBackground=new Image("file:resources/rightInterface.png");
-    public static Image minimapBackground=new Image("file:resources/minimap.png");
-    public static Image eqSlot=new Image("file:resources/eqslot.png");
-
+    public static Image interfaceBackground=new Image("file:resources/interface/rightInterface.png");
+    public static Image minimapBackground=new Image("file:resources/interface/minimap.png");
+    public static Image eqSlot=new Image("file:resources/interface/eqslot.png");
+    public static Image gameOverTexture=new Image("file:resources/interface/gameOver.png");
 
     public static void showRightInterface(){
         gc.drawImage(interfaceBackground, width*cornerSize, 0, 6*cornerSize, height*cornerSize);
@@ -100,6 +99,11 @@ public class RightInterface {
                 if(i<=2){showItemInHand(i, items[i]);}
                 else {showItemInEq(i, items[i]);}
             }
+        }
+
+        //show GAME OVER
+        if(endGame){
+            gc.drawImage(gameOverTexture, 0, 0, width*cornerSize, height*cornerSize);
         }
     }
 
