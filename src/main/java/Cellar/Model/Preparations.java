@@ -26,7 +26,6 @@ public class Preparations {
         Level lastLevel=levels.get(maxLevel-1);
         lastLevel.field[lastLevel.exitY][lastLevel.exitX]=new Field(Field.TypeOfField.floor);
         new Jar(lastLevel, lastLevel.exitY, lastLevel.exitX);
-        System.out.println("generated jar at y="+lastLevel.exitY+", x="+lastLevel.exitX);
 
         //making player
         currentLevel=levels.get(0);
@@ -45,9 +44,10 @@ public class Preparations {
     public static void assignMobs(){
         for(int i=0; i<maxLevel; i++){
             levels.get(i).mobTypes.add(Rat.class);
-            levels.get(i).mobTypes.add(Witch.class);
+            if(i>=1){levels.get(i).mobTypes.add(Witch.class);}
             if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
             else if(i>=2){levels.get(i).mobTypes.add(LittleSlime.class);}
+            if(i>=3){levels.get(i).mobTypes.add(WalkingBomb.class);}
         }
     }
 
