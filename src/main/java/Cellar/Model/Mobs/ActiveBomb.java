@@ -28,7 +28,7 @@ public class ActiveBomb extends WalkingEnemy {
         die();
         for(int i=this.y-1; i<=this.y+1; i++){
             for(int j=this.x-1; j<=this.x+1; j++){
-                if(i>0 && i<roomSize*levelSize && j>0 && j<roomSize*levelSize){
+                if(i>0 && i<roomSize*levelSize-1 && j>0 && j<roomSize*levelSize-1){
                     if(world.field[i][j].getType()== Field.TypeOfField.wall){
                         world.field[i][j]=new Field(Field.TypeOfField.floor);
                     }
