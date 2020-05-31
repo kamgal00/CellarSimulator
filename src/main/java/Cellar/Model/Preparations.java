@@ -1,9 +1,9 @@
 package Cellar.Model;
 
-import Cellar.Model.Items.Armors.BasicArmor;
+import Cellar.Model.Items.Armors.*;
 import Cellar.Model.Items.Jar;
-import Cellar.Model.Items.Shields.BasicShield;
-import Cellar.Model.Items.Weapons.BasicWeapon;
+import Cellar.Model.Items.Shields.*;
+import Cellar.Model.Items.Weapons.*;
 import Cellar.Model.Mobs.*;
 
 import java.util.ArrayList;
@@ -44,6 +44,9 @@ public class Preparations {
     public static void assignMobs(){
         for(int i=0; i<maxLevel; i++){
             levels.get(i).mobTypes.add(Rat.class);
+            if(i>=6){levels.get(i).mobTypes.add(Alien.class);}
+            if(i>=5){levels.get(i).mobTypes.add(Skeleton.class);}
+            if(i>=2){levels.get(i).mobTypes.add(Zombie.class);}
             if(i>=1){levels.get(i).mobTypes.add(Witch.class);}
             if(i>=4){levels.get(i).mobTypes.add(BigSlime.class);}
             else if(i>=2){levels.get(i).mobTypes.add(LittleSlime.class);}
@@ -53,9 +56,12 @@ public class Preparations {
 
     public static void assignItems(){
         for(int i=0; i<maxLevel; i++){
-            levels.get(i).itemTypes.add(BasicWeapon.class);
-            levels.get(i).itemTypes.add(BasicShield.class);
-            levels.get(i).itemTypes.add(BasicArmor.class);
+            if(i<5){levels.get(i).itemTypes.add(LeatherArmor.class);}
+            if(i>=5){levels.get(i).itemTypes.add(SteelArmor.class);}
+            if(i<5){levels.get(i).itemTypes.add(WoodenShield.class);}
+            if(i>=5){levels.get(i).itemTypes.add(SteelShield.class);}
+            if(i<5){levels.get(i).itemTypes.add(WoodenSword.class);}
+            if(i>=5){levels.get(i).itemTypes.add(SteelSword.class);}
         }
     }
 
