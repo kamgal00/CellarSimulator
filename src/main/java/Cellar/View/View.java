@@ -71,6 +71,12 @@ public class View {
         else {
             if(!mob.isVisible()) return;
             gc.drawImage(mob.currIm,  (mob.x-player.x + width / 2) * cornerSize, (mob.y - player.y + height / 2) * cornerSize, cornerSize, cornerSize);
+
+            //show HP bar
+            gc.setFill(Color.rgb(90, 0,0));
+            gc.fillRect((mob.x-player.x + width / 2) * cornerSize +1,(mob.y - player.y + height / 2)*cornerSize -2, cornerSize-2, 5);
+            gc.setFill(Color.GREEN);
+            gc.fillRect((mob.x-player.x + width / 2) * cornerSize +1,(mob.y - player.y + height / 2)*cornerSize -2, (cornerSize-2)*mob.hp/mob.maxHp, 5);
         }
     }
 }
