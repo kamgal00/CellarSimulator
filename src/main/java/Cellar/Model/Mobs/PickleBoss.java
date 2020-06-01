@@ -21,8 +21,8 @@ public class PickleBoss extends WalkingEnemy {
     {
         expForKill=100;
         maxHp=200;
-        hp=1;
-        attack=1;
+        hp=200;
+        attack=100;
         defense=30;
         blockChance=10;
         rightIm=new Image("file:resources/mobs/pickleBossRight.gif");
