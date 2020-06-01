@@ -26,7 +26,7 @@ public class PickleBoss extends WalkingEnemy {
     void onDeath(){
         for(int xd=0;xd<3;xd++) for(int yd=0;yd<3;yd++) {
             if(xd==1 && yd==1) continue;
-            currentLevel.field[currentLevel.entranceY-1+yd][currentLevel.entranceX-1+xd].typeOfField= Field.TypeOfField.floor;
+            currentLevel.field[currentLevel.entranceY][currentLevel.entranceX].typeOfField= Field.TypeOfField.entrance;
         }
     }
 }

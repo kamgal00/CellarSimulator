@@ -223,7 +223,7 @@ public class ActionControl {
                     case C: dir= Mob.Directions.rightDown; break;
                 }
         }
-        if(dir!=null && !(!firstTime&& System.currentTimeMillis()-pressTime<300))
+        if(dir!=null && !(!firstTime&& System.currentTimeMillis()-pressTime<195))
         {
             if(firstTime) {
                 firstTime=false;

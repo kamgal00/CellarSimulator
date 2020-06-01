@@ -67,10 +67,7 @@ public class Equipment {
                 if(PICKLE && Jar.class.isAssignableFrom(x.getClass())) {
                     PICKLE=false;
                     currentLevel.addMob(new PickleBoss(currentLevel),player.y+1,player.x);
-                    for(int xd=0;xd<3;xd++) for(int yd=0;yd<3;yd++) {
-                        if(xd==1 && yd==1) continue;
-                        currentLevel.field[currentLevel.entranceY-1+yd][currentLevel.entranceX-1+xd].typeOfField= Field.TypeOfField.wall;
-                    }
+                    currentLevel.field[currentLevel.entranceY][currentLevel.entranceX].typeOfField= Field.TypeOfField.wall;
                 }
                 return true;
             }
