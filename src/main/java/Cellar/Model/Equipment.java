@@ -35,6 +35,12 @@ public class Equipment {
     public void swapSlots(int i,int j)
     {
         if(i<0||j<0||j>equipmentSize-1||i>equipmentSize-1) return;
+        if(i==0 && items[j]!=null && !(Shield.class.isAssignableFrom(items[j].getClass()) || Weapon.class.isAssignableFrom(items[j].getClass()))) return;
+        if(i==1 && items[j]!=null && !(Armor.class.isAssignableFrom(items[j].getClass()))) return;
+        if(i==2 && items[j]!=null && !(Weapon.class.isAssignableFrom(items[j].getClass()))) return;
+        if(j==0 && items[i]!=null && !(Shield.class.isAssignableFrom(items[i].getClass()) || Weapon.class.isAssignableFrom(items[i].getClass()))) return;
+        if(j==1 && items[i]!=null && !(Armor.class.isAssignableFrom(items[i].getClass()))) return;
+        if(j==2 && items[i]!=null && !(Weapon.class.isAssignableFrom(items[i].getClass()))) return;
         Item a = items[i];
         items[i]=items[j];
         items[j]=a;

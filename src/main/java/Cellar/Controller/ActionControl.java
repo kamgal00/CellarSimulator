@@ -160,6 +160,7 @@ public class ActionControl {
         {
             int a= (int) Math.floor(click.getSceneX());
             int b= (int) Math.floor(click.getSceneY());
+            if(eqIn.onClick(a,b)) return;
             if(a<Model.width*Model.cornerSize&&b<Model.height*Model.cornerSize)
             {
                 isPressed=true;

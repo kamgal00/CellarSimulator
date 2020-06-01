@@ -79,7 +79,7 @@ public class RightInterface {
         gc.setFont(new Font("", cornerSize/3));
         gc.fillText("DEF "+player.getDefense(), width*cornerSize+6*cornerSize/2, 45+3*roomSize*levelSize+5*cornerSize/2-5);
 
-        //show eq slots
+        /*//show eq slots
         //equipped
         gc.drawImage(eqSlot, (width+1)*cornerSize+24, 425, cornerSize, cornerSize);
         gc.drawImage(eqSlot, (width+2)*cornerSize+24, 425, cornerSize, cornerSize);
@@ -99,8 +99,10 @@ public class RightInterface {
                 if(i<=2){showItemInHand(i, items[i]);}
                 else {showItemInEq(i, items[i]);}
             }
-        }
+        }*/
 
+        //show eq slots
+        eqIn.draw();
         //show GAME OVER
         if(endGame){
             gc.drawImage(gameOverTexture, 0, 0, width*cornerSize, height*cornerSize);

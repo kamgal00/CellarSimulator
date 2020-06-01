@@ -22,6 +22,7 @@ public class Model {
     public static int currentLevelIndex=0;
     public static Level currentLevel;
     public static Player player;
+    public static EqInterface eqIn;
     public static GraphicsContext gc;
     public static int equipmentSize=18;
 }

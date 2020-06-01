@@ -30,6 +30,7 @@ public class Preparations {
         //making player
         currentLevel=levels.get(0);
         player=new Player(currentLevel);
+        eqIn=new EqInterface(player.eq);
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
         discover();
 
