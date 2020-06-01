@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static Cellar.Model.Model.*;
+import static Cellar.View.RightInterface.eqSelected;
 import static Cellar.View.RightInterface.eqSlot;
 
 public class EqInterface {
@@ -64,7 +65,7 @@ public class EqInterface {
     }
     public void draw() {
         slots.stream().forEach(a -> {
-            if(last!=null && last.id==a.id) gc.drawImage(eqSlot,a.x, a.y, a.width, a.height);
+            if(last!=null && last.id==a.id) gc.drawImage(eqSelected,a.x, a.y, a.width, a.height);
             else gc.drawImage(eqSlot,a.x, a.y, a.width, a.height);
             if(eq.items[a.id]!=null) gc.drawImage(eq.items[a.id].texture, a.x+2, a.y+2, cornerSize-6, cornerSize-6);
         });
