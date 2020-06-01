@@ -32,11 +32,10 @@ public class EqInterface {
         slots.add(new Slot((width+1)*cornerSize+24, 425));
         slots.add(new Slot((width+2)*cornerSize+24, 425));
         slots.add(new Slot((width+3)*cornerSize+24, 425));
-        for(int i=0; i<=4; i++){
-            for(int j=0; j<=2; j++){
+        for(int j=0; j<=2; j++)
+            for(int i=0; i<=4; i++){
                 slots.add(new Slot((width+i)*cornerSize+24, 500+j*cornerSize));
             }
-        }
     }
     public boolean onClick(int x, int y) {
         Optional<Slot> found;
