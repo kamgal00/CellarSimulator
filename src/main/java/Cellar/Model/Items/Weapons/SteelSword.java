@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class SteelSword extends Weapon {
     public SteelSword(Level level, int y, int x){
         super(level, y, x);
-        attack=12;
+        attack=18;
         texture=new Image("file:resources/items/weapons/steelSword.png");
     }
 }

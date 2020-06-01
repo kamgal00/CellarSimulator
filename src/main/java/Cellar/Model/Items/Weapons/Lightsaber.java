@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class Lightsaber extends Weapon {
     public Lightsaber(Level level, int y, int x){
         super(level, y, x);
-        attack=20;
+        attack=25;
         texture=new Image("file:resources/items/weapons/lightsaber.png");
     }
 }
