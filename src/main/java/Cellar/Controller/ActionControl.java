@@ -37,6 +37,8 @@ public class ActionControl {
     boolean isPressed;
     int x,y;
     long restartTime;
+    long pressTime;
+    boolean firstTime;
     public ActionControl()
     {
         lock=new Object();
@@ -81,6 +83,8 @@ public class ActionControl {
                 if(!isRestart){restartTime=System.currentTimeMillis();}
                 isRestart=true;
             }
+            if(lastPressed==null)
+                firstTime=true;
             lastPressed=key.getCode();
             updateDirection();
         }
@@ -219,8 +223,12 @@ public class ActionControl {
                     case C: dir= Mob.Directions.rightDown; break;
                 }
         }
-        if(dir!=null)
+        if(dir!=null && !(!firstTime&& System.currentTimeMillis()-pressTime<300))
         {
+            if(firstTime) {
+                firstTime=false;
+                pressTime=System.currentTimeMillis();
+            }
             Field n = dir.getNeighborField(player);
             if(n.mob instanceof Enemy) return new AttackActionType(n.mob);
             return new MoveActionType(dir);
