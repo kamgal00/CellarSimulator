@@ -1,7 +1,6 @@
 package Cellar.Model.Mobs;
 
 import Cellar.Model.Items.Armors.GoldenArmor;
-import Cellar.Model.Items.Weapons.Lightsaber;
 import Cellar.Model.Level;
 import javafx.scene.image.Image;
 
