@@ -31,6 +31,7 @@ public class Preparations {
         currentLevel=levels.get(0);
         player=new Player(currentLevel);
         eqIn=new EqInterface(player.eq);
+        PICKLE=true;
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
         discover();
 

@@ -25,4 +25,5 @@ public class Model {
     public static EqInterface eqIn;
     public static GraphicsContext gc;
     public static int equipmentSize=18;
+    public static boolean PICKLE;
 }

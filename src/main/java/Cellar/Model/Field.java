@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Field {
     public int distance;
     public Mob mob;
-    TypeOfField typeOfField;
+    public TypeOfField typeOfField;
     public boolean discovered=false;
     public ArrayList<Item> items=new ArrayList<>();
 

@@ -1,9 +1,7 @@
 package Cellar.Model;
 
-import Cellar.Model.Items.Armor;
-import Cellar.Model.Items.Item;
-import Cellar.Model.Items.Shield;
-import Cellar.Model.Items.Weapon;
+import Cellar.Model.Items.*;
+import Cellar.Model.Mobs.PickleBoss;
 
 import static Cellar.Model.Model.*;
 
@@ -66,6 +64,14 @@ public class Equipment {
                 }
                 items[i]=x;
                 loadBonuses();
+                if(PICKLE && Jar.class.isAssignableFrom(x.getClass())) {
+                    PICKLE=false;
+                    currentLevel.addMob(new PickleBoss(currentLevel),player.y+1,player.x);
+                    for(int xd=0;xd<3;xd++) for(int yd=0;yd<3;yd++) {
+                        if(xd==1 && yd==1) continue;
+                        currentLevel.field[currentLevel.entranceY-1+yd][currentLevel.entranceX-1+xd].typeOfField= Field.TypeOfField.wall;
+                    }
+                }
                 return true;
             }
         }
