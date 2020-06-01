@@ -14,13 +14,13 @@ public class PickleBoss extends WalkingEnemy {
     public void setParams()
     {
         expForKill=100;
-        maxHp=10;
-        hp=10;
-        attack=1;
-        defense=1;
-        blockChance=1;
-        rightIm=new Image("file:resources/mobs/ratRight.gif");
-        leftIm=new Image("file:resources/mobs/ratLeft.gif");
+        maxHp=200;
+        hp=200;
+        attack=100;
+        defense=30;
+        blockChance=10;
+        rightIm=new Image("file:resources/mobs/pickleBossRight.gif");
+        leftIm=new Image("file:resources/mobs/pickleBossLeft.gif");
     }
     @Override
     void onDeath(){
