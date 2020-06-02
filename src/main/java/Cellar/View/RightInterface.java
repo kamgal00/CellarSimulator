@@ -15,6 +15,7 @@ public class RightInterface {
     public static Image eqSlot=new Image("file:resources/interface/eqslot.png");
     public static Image eqSelected = new Image("file:resources/interface/selectedeqslot.png");
     public static Image gameOverTexture=new Image("file:resources/interface/gameOver.png");
+    public static Image winTexture=new Image("file:resources/interface/win.gif");
 
     public static void showRightInterface(){
         gc.drawImage(interfaceBackground, width*cornerSize, 0, 6*cornerSize, height*cornerSize);
@@ -107,6 +108,11 @@ public class RightInterface {
         //show GAME OVER
         if(endGame){
             gc.drawImage(gameOverTexture, 0, 0, width*cornerSize, height*cornerSize);
+        }
+
+        //show WIN
+        if(wonGame){
+            gc.drawImage(winTexture, 0, 0, width*cornerSize, height*cornerSize);
         }
     }
 

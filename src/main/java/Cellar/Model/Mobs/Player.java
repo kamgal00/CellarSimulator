@@ -3,6 +3,7 @@ import Cellar.Controller.Controller;
 import Cellar.Model.Equipment;
 import Cellar.Model.Field;
 import Cellar.Model.Items.Item;
+import Cellar.Model.Items.Jar;
 import Cellar.Model.Level;
 import Cellar.Model.Mobs.Actions.ActionType;
 import Cellar.Model.Model.*;
@@ -253,5 +254,14 @@ public class Player extends Mob {
     @Override
     void onDeath() {
         endGame=true;
+    }
+
+    public boolean hasJar(){
+        for(int i=0; i<equipmentSize; i++){
+            if(eq.items[i]!=null && eq.items[i].getClass().isAssignableFrom(Jar.class)){
+                return true;
+            }
+        }
+        return false;
     }
 }

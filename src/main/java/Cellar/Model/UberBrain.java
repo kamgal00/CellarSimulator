@@ -1,14 +1,13 @@
 package Cellar.Model;
 
 import Cellar.Model.Mobs.Mob;
-import Cellar.Model.Mobs.Player;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Random;
 
-import static Cellar.View.RightInterface.showRightInterface;
+import static Cellar.View.RightInterface.*;
 import static Cellar.View.View.*;
 
 import static Cellar.Model.Model.*;
@@ -18,7 +17,7 @@ public class UberBrain {
     private Field currentField;
     public static void brainTick(GraphicsContext gc){
         boolean turn=true;
-        if(endGame){
+        if(endGame || wonGame){
             showBackground(gc);
             currentLevel.cleanDistance();
             for(int i=0; i<currentLevel.mobs.size(); i++){
@@ -63,6 +62,15 @@ public class UberBrain {
                     currentLevel = levels.get(currentLevelIndex);
                     currentLevel.addMob(player, currentLevel.exitY, currentLevel.exitX);
                     player.world = currentLevel;
+                }
+            }
+            if(currentLevelIndex == 0) {
+                if (currentLevel.field[player.y][player.x].getType()== Field.TypeOfField.entrance && !changedLevel&&player.readyToChangeLevel && player.hasJar()) {
+                    currentLevel.mobs.remove(player);
+                    wonGame=true;
+                    currentLevel.field[player.y][player.x].mob=null;
+                    winTexture=new Image("file:resources/interface/win.gif");
+                    return;
                 }
             }
             generateEnemy();

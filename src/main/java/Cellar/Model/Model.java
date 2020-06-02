@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Model {
     public static boolean endGame;
+    public static boolean wonGame;
     public static int width = 15;
     public static int height = 15;
     public static int cornerSize = 48;

@@ -32,6 +32,8 @@ public class Preparations {
         player=new Player(currentLevel);
         eqIn=new EqInterface(player.eq);
         PICKLE=true;
+        endGame=false;
+        wonGame=false;
         currentLevel.addMob(player, currentLevel.entranceY, currentLevel.entranceX);
         discover();
 
@@ -71,5 +73,6 @@ public class Preparations {
         levels=new ArrayList<>();
         currentLevelIndex=0;
         endGame=false;
+        wonGame=false;
     }
 }
