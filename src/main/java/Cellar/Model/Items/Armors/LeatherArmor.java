@@ -8,6 +8,6 @@ public class LeatherArmor extends Armor {
     public LeatherArmor(Level level, int y, int x) {
         super(level, y, x);
         defence=10;
-        texture=new Image("file:resources/items/armors/leatherArmor.png");
+        texture=new Image("resources/items/armors/leatherArmor.png");
     }
 }

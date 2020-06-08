@@ -131,8 +131,8 @@ public class Player extends Mob {
         attack=15;
         defense=5;
         blockChance=15;
-        rightIm=new Image("file:resources/manright.gif");
-        leftIm=new Image("file:resources/manleft.gif");
+        rightIm=new Image("resources/manright.gif");
+        leftIm=new Image("resources/manleft.gif");
     }
 
     @Override

@@ -8,6 +8,6 @@ public class GoldenArmor extends Armor {
     public GoldenArmor(Level level, int y, int x) {
         super(level, y, x);
         defence=40;
-        texture=new Image("file:resources/items/armors/goldenArmor.png");
+        texture=new Image("resources/items/armors/goldenArmor.png");
     }
 }

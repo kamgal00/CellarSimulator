@@ -27,6 +27,7 @@ public class Controller {
             root.getChildren().add(c);
             action=new ActionControl();
             PathFinder.loadPathFinder();
+            prepareLevels();
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -45,14 +46,12 @@ public class Controller {
 
             }.start();
 
-            Scene scene = new Scene(root, (width+6) * cornerSize, height * cornerSize);
+            Scene scene = new Scene(root, (width+6) * cornerSize-12, height * cornerSize-12);
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Cellar Simulator");
             primaryStage.show();
             primaryStage.setResizable(false);
-
-            prepareLevels();
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, action::keyPressed);
             scene.addEventFilter(KeyEvent.KEY_RELEASED, action::keyReleased);

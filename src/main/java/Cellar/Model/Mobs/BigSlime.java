@@ -18,8 +18,8 @@ public class BigSlime extends WalkingEnemy {
         attack=20;
         defense=10;
         blockChance=3;
-        rightIm=new Image("file:resources/mobs/bigSlimeRight.gif");
-        leftIm=new Image("file:resources/mobs/bigSlimeLeft.gif");
+        rightIm=new Image("resources/mobs/bigSlimeRight.gif");
+        leftIm=new Image("resources/mobs/bigSlimeLeft.gif");
     }
 
     @Override

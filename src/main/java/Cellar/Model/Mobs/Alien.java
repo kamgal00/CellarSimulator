@@ -17,8 +17,8 @@ public class Alien extends WalkingEnemy {
         attack=60;
         defense=10;
         blockChance=20;
-        rightIm=new Image("file:resources/mobs/alienRight.gif");
-        leftIm=new Image("file:resources/mobs/alienLeft.gif");
+        rightIm=new Image("resources/mobs/alienRight.gif");
+        leftIm=new Image("resources/mobs/alienLeft.gif");
     }
 
     @Override

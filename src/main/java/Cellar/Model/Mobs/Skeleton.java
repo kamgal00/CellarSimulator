@@ -18,8 +18,8 @@ public class Skeleton extends WalkingEnemy {
         attack=20;
         defense=15;
         blockChance=40;
-        rightIm=new Image("file:resources/mobs/skeletonRight.gif");
-        leftIm=new Image("file:resources/mobs/skeletonLeft.gif");
+        rightIm=new Image("resources/mobs/skeletonRight.gif");
+        leftIm=new Image("resources/mobs/skeletonLeft.gif");
     }
 
     @Override

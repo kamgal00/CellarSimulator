@@ -21,16 +21,17 @@ public class PickleBoss extends WalkingEnemy {
     {
         expForKill=100;
         maxHp=200;
+
         hp=200;
         attack=100;
-        /*
+/*
         hp=1;
         attack=1;
-        */
+ */
         defense=30;
         blockChance=10;
-        rightIm=new Image("file:resources/mobs/pickleBossRight.gif");
-        leftIm=new Image("file:resources/mobs/pickleBossLeft.gif");
+        rightIm=new Image("resources/mobs/pickleBossRight.gif");
+        leftIm=new Image("resources/mobs/pickleBossLeft.gif");
     }
     @Override
     void onDeath(){

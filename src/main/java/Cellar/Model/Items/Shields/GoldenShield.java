@@ -9,6 +9,6 @@ public class GoldenShield extends Shield {
         super(level, y, x);
         defence=35;
         block=25;
-        texture=new Image("file:resources/items/shields/goldenShield.png");
+        texture=new Image("resources/items/shields/goldenShield.png");
     }
 }

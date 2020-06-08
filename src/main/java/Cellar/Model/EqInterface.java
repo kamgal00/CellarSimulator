@@ -40,7 +40,7 @@ public class EqInterface {
     public boolean onClick(int x, int y) {
         Optional<Slot> found;
         found=slots.stream().filter(a -> a.x<=x && a.x+a.width>x && a.y<=y && a.y+a.height>y).findAny();
-        if (found.isEmpty()) {
+        if (!found.isPresent()) {
             last=null;
             return false;
         }

@@ -8,6 +8,6 @@ public class SteelArmor extends Armor {
     public SteelArmor(Level level, int y, int x) {
         super(level, y, x);
         defence=20;
-        texture=new Image("file:resources/items/armors/steelArmor.png");
+        texture=new Image("resources/items/armors/steelArmor.png");
     }
 }
