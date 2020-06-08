@@ -108,7 +108,7 @@ public class ActionControl {
             if (key.getCode() == KeyCode.SPACE) isSpace=false;
             if (key.getCode() == KeyCode.R) isRestart=false;
             //teleport to exit
-            if(key.getCode()==KeyCode.T){
+            /*if(key.getCode()==KeyCode.T){
                 if(!player.hasJar()){
                     player.y=currentLevel.exitY;
                     player.x=currentLevel.exitX;
@@ -117,7 +117,7 @@ public class ActionControl {
                     player.y=currentLevel.entranceY;
                     player.x=currentLevel.entranceX;
                 }
-            }
+            }*/
             if(lastPressed==key.getCode())
             {
                 if(isW) lastPressed=KeyCode.W;
