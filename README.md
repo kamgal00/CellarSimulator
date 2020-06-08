@@ -15,5 +15,6 @@
 * restart gry poprzez przytrzymanie *R* przez 3 sekundy
 * pominięcie tury poprzez spację albo kliknięcie myszką na postać gracza
 
+Grę można uruchomić plikiem CellarSimulator.jar
 Do uruchomienia gry wymagana jest java w wersji 8.
 Zalecanym systemem operacyjnym jest windows.
