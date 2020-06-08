@@ -8,6 +8,6 @@ public class Lightsaber extends Weapon {
     public Lightsaber(Level level, int y, int x){
         super(level, y, x);
         attack=25;
-        texture=new Image("resources/items/weapons/lightsaber.png");
+        texture=new Image("file:resources/items/weapons/lightsaber.png");
     }
 }

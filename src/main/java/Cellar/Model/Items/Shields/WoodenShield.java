@@ -9,6 +9,6 @@ public class WoodenShield extends Shield {
         super(level, y, x);
         defence=8;
         block=10;
-        texture=new Image("resources/items/shields/woodenShield.png");
+        texture=new Image("file:resources/items/shields/woodenShield.png");
     }
 }

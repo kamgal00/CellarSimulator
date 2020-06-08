@@ -8,6 +8,6 @@ public class PickleArmor extends Armor {
     public PickleArmor(Level level, int y, int x) {
         super(level, y, x);
         defence=60;
-        texture=new Image("resources/items/armors/pickleArmor.png");
+        texture=new Image("file:resources/items/armors/pickleArmor.png");
     }
 }

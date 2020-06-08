@@ -17,8 +17,8 @@ public class Zombie extends WalkingEnemy {
         attack=20;
         defense=20;
         blockChance=20;
-        rightIm=new Image("resources/mobs/zombieRight.gif");
-        leftIm=new Image("resources/mobs/zombieLeft.gif");
+        rightIm=new Image("file:resources/mobs/zombieRight.gif");
+        leftIm=new Image("file:resources/mobs/zombieLeft.gif");
     }
 
     @Override

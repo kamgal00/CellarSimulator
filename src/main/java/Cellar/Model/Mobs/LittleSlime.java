@@ -13,7 +13,7 @@ public class LittleSlime extends WalkingEnemy {
         attack=5;
         defense=10;
         blockChance=10;
-        rightIm=new Image("resources/mobs/littleSlimeRight.gif");
-        leftIm=new Image("resources/mobs/littleSlimeLeft.gif");
+        rightIm=new Image("file:resources/mobs/littleSlimeRight.gif");
+        leftIm=new Image("file:resources/mobs/littleSlimeLeft.gif");
     }
 }

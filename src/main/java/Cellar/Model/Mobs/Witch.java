@@ -14,7 +14,7 @@ public class Witch extends WalkingEnemy {
         attack=15;
         defense=2;
         blockChance=25;
-        rightIm=new Image("resources/mobs/witchRight.gif");
-        leftIm=new Image("resources/mobs/witchLeft.gif");
+        rightIm=new Image("file:resources/mobs/witchRight.gif");
+        leftIm=new Image("file:resources/mobs/witchLeft.gif");
     }
 }

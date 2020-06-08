@@ -16,10 +16,10 @@ import static Cellar.Model.Model.*;
 
 public class View {
 
-    static Image floorTexture=new Image("resources/floor.png");
-    static Image wallTexture=new Image("resources/bricks.png");
-    public static Image exitTexture=new Image("resources/exit.png");
-    public static Image entranceTexture=new Image("resources/entrance.png");
+    static Image floorTexture=new Image("file:resources/floor.png");
+    static Image wallTexture=new Image("file:resources/bricks.png");
+    public static Image exitTexture=new Image("file:resources/exit.png");
+    public static Image entranceTexture=new Image("file:resources/entrance.png");
 
     public static void showBackground(GraphicsContext gc){
         gc.setFill(Color.DARKBLUE);

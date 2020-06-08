@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class Jar extends Item {
     public Jar(Level level, int y, int x) {
         super(level, y, x);
-        texture=new Image("resources/items/jar.png");
+        texture=new Image("file:resources/items/jar.png");
     }
 
     @Override

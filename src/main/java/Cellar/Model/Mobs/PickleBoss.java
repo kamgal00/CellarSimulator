@@ -30,8 +30,8 @@ public class PickleBoss extends WalkingEnemy {
  */
         defense=30;
         blockChance=10;
-        rightIm=new Image("resources/mobs/pickleBossRight.gif");
-        leftIm=new Image("resources/mobs/pickleBossLeft.gif");
+        rightIm=new Image("file:resources/mobs/pickleBossRight.gif");
+        leftIm=new Image("file:resources/mobs/pickleBossLeft.gif");
     }
     @Override
     void onDeath(){

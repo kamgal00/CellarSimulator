@@ -8,6 +8,6 @@ public class PickleSword extends Weapon {
     public PickleSword(Level level, int y, int x){
         super(level, y, x);
         attack=40;
-        texture=new Image("resources/items/weapons/pickleSword.png");
+        texture=new Image("file:resources/items/weapons/pickleSword.png");
     }
 }

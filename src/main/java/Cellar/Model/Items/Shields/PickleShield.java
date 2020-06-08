@@ -9,6 +9,6 @@ public class PickleShield extends Shield {
         super(level, y, x);
         defence=45;
         block=40;
-        texture=new Image("resources/items/shields/pickleShield.png");
+        texture=new Image("file:resources/items/shields/pickleShield.png");
     }
 }

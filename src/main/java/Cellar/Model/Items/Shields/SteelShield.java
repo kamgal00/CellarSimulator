@@ -9,6 +9,6 @@ public class SteelShield extends Shield {
         super(level, y, x);
         defence=15;
         block=18;
-        texture=new Image("resources/items/shields/steelShield.png");
+        texture=new Image("file:resources/items/shields/steelShield.png");
     }
 }

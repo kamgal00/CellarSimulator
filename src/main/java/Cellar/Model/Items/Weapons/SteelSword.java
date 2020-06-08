@@ -8,6 +8,6 @@ public class SteelSword extends Weapon {
     public SteelSword(Level level, int y, int x){
         super(level, y, x);
         attack=18;
-        texture=new Image("resources/items/weapons/steelSword.png");
+        texture=new Image("file:resources/items/weapons/steelSword.png");
     }
 }

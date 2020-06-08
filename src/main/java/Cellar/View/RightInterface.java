@@ -10,12 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class RightInterface {
-    public static Image interfaceBackground=new Image("resources/interface/rightInterface.png");
-    public static Image minimapBackground=new Image("resources/interface/minimap.png");
-    public static Image eqSlot=new Image("resources/interface/eqslot.png");
-    public static Image eqSelected = new Image("resources/interface/selectedeqslot.png");
-    public static Image gameOverTexture=new Image("resources/interface/gameOver.png");
-    public static Image winTexture=new Image("resources/interface/win.gif");
+    public static Image interfaceBackground=new Image("file:resources/interface/rightInterface.png");
+    public static Image minimapBackground=new Image("file:resources/interface/minimap.png");
+    public static Image eqSlot=new Image("file:resources/interface/eqslot.png");
+    public static Image eqSelected = new Image("file:resources/interface/selectedeqslot.png");
+    public static Image gameOverTexture=new Image("file:resources/interface/gameOver.png");
+    public static Image winTexture=new Image("file:resources/interface/win.gif");
 
     public static void showRightInterface(){
         gc.drawImage(interfaceBackground, width*cornerSize, 0, 6*cornerSize, height*cornerSize);

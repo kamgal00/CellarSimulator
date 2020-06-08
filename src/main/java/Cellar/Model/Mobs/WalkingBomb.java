@@ -21,8 +21,8 @@ public class WalkingBomb extends WalkingEnemy {
         attack=0;
         defense=0;
         blockChance=0;
-        rightIm=new Image("resources/mobs/bombRight.gif");
-        leftIm=new Image("resources/mobs/bombLeft.gif");
+        rightIm=new Image("file:resources/mobs/bombRight.gif");
+        leftIm=new Image("file:resources/mobs/bombLeft.gif");
     }
 
     @Override
