@@ -13,3 +13,7 @@
 * interakcja z ewkipunkiem za pomocą myszki
 * interakcja z polem, na którym stoi gracz przy pomocy *X* lub myszki
 * restart gry poprzez przytrzymanie *R* przez 3 sekundy
+* pominięcie tury poprzez spację albo kliknięcie myszką na postać gracza
+
+Do uruchomienia gry wymagana jest java w wersji 8.
+Zalecanym systemem operacyjnym jest windows.
